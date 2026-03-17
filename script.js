@@ -1,91 +1,130 @@
-// ---------- LOADING ----------
-let time = 5;
-const timerEl = document.getElementById("timer");
-const enterBtn = document.getElementById("enterBtn");
-const loading = document.getElementById("loading");
+// script.js
+
+const loader = document.getElementById("loader");
 const main = document.getElementById("main");
+const countdownEl = document.getElementById("countdown");
+const startButton = document.getElementById("startButton");
+const bgAudio = document.getElementById("bgAudio");
+const countdownBox = document.getElementById("countdownBox");
+const celebrationBox = document.getElementById("celebrationBox");
+const heartsContainer = document.getElementById("heartsContainer");
+const bubblesContainer = document.getElementById("bubblesContainer");
 
-const countdown = setInterval(()=>{
-  time--;
-  timerEl.innerText = time;
-  if(time<=0){ clearInterval(countdown); enterBtn.classList.remove("hidden"); }
-},1000);
-
-enterBtn.onclick = () => {
-  loading.style.display="none";
+// ===== LOADER =====
+setTimeout(() => {
+  loader.style.display = "none";
   main.classList.remove("hidden");
-};
+}, 1500);
 
-// ---------- LETTER OPEN & RIBBON ----------
-const letter = document.getElementById("letter");
-const ribbon = letter.querySelector(".ribbon");
-const folded = letter.querySelector(".letter-folded");
-const opened = letter.querySelector(".letter-opened");
+// ===== COUNTDOWN =====
+const birthdayDate = new Date("April 28, 2025").getTime();
 
-letter.onclick = ()=>{
-  folded.classList.add("hidden");
-  opened.classList.remove("hidden");
-  ribbon.style.transform="translateY(-200%)";
-};
+function updateCountdown() {
+  const now = new Date().getTime();
+  const diff = birthdayDate - now;
 
-// ---------- BALLOONS & EMOJIS ----------
-const emojis = ["🌸","✨","💖","🎀","🕊️"];
-for(let i=0;i<20;i++){
-  const e=document.createElement("div");
-  e.className="floating";
-  e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
-  e.style.left=Math.random()*100+"vw";
-  e.style.fontSize=18+Math.random()*22+"px";
-  e.style.animationDuration=8+Math.random()*6+"s";
-  document.body.appendChild(e);
+  if (diff <= 0) {
+    countdownBox.style.display = "none";
+    startButton.classList.remove("hidden");
+    clearInterval(interval);
+    return;
+  }
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
+  const mins = Math.floor((diff % (1000*60*60))/(1000*60));
+  const secs = Math.floor((diff % (1000*60))/1000);
+
+  countdownEl.innerText = `${days}d ${hours}h ${mins}m ${secs}s`;
 }
 
-// BALLOONS
-for(let i=0;i<10;i++){
-  const b=document.createElement("div");
-  b.className="balloon";
-  b.innerText="🎈";
-  b.style.left=Math.random()*100+"vw";
-  b.style.fontSize=24+Math.random()*20+"px";
-  b.style.animationDuration=6+Math.random()*5+"s";
-  document.body.appendChild(b);
-}
+const interval = setInterval(updateCountdown, 1000);
+updateCountdown();
 
-// ---------- GAME ----------
-const gameContainer=document.getElementById("gameContainer");
-const startBtn=document.getElementById("startGame");
-const scoreEl=document.getElementById("score");
-const gameArea=document.getElementById("gameArea");
-let score=0, gameInterval;
+// ===== START CELEBRATION =====
+startButton.addEventListener("click", () => {
+  startButton.style.display = "none";
+  celebrationBox.classList.remove("hidden");
+  bgAudio.volume = 0.8;
+  bgAudio.play().catch(e => console.log("Play blocked:", e));
 
-document.getElementById("gameBtn").onclick=()=>{
-  gameContainer.classList.remove("hidden");
-}
-
-startBtn.onclick=()=>{
-  score=0; scoreEl.innerText=score;
-  gameInterval=setInterval(dropHeart,800);
-}
-
-function dropHeart(){
-  const heart=document.createElement("div");
-  heart.className="heart"; heart.innerText="💖";
-  heart.style.left=Math.random()*(gameArea.clientWidth-30)+"px";
-  heart.onclick=()=>{ score++; scoreEl.innerText=score; heart.remove(); if(score>=5) unlockSecret();}
-  gameArea.appendChild(heart);
-  setTimeout(()=>heart.remove(),5000);
-}
-
-// ---------- SECRET ----------
-const secret=document.getElementById("secret");
-function unlockSecret(){ clearInterval(gameInterval); secret.classList.add("show"); }
-function closeSecret(){ secret.classList.remove("show"); }
-
-// ---------- SPARKLES ----------
-const sparkleContainer=document.getElementById("sparkleContainer");
-document.addEventListener("mousemove",e=>{
-  const s=document.createElement("div");
-  s.className="sparkle"; s.style.left=e.clientX+"px"; s.style.top=e.clientY+"px";
-  sparkleContainer.appendChild(s);
-  setTimeout(()=>s.remove(),1000);
+  startHearts();
+  startBubbles();
+  startConfetti();
 });
+
+// ===== FLOATING HEARTS =====
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    const size = Math.random()*20 + 10;
+    heart.style.width = size + "px";
+    heart.style.height = size + "px";
+    heart.style.background = "pink";
+    heart.style.left = Math.random()*window.innerWidth + "px";
+    heart.style.top = window.innerHeight + "px";
+    heartsContainer.appendChild(heart);
+
+    let y = window.innerHeight;
+    const anim = setInterval(() => {
+      y -= 2;
+      heart.style.top = y + "px";
+      if(y < -50){
+        heart.remove();
+        clearInterval(anim);
+      }
+    }, 20);
+  }, 300);
+}
+
+// ===== BUBBLES =====
+function startBubbles() {
+  for(let i=0;i<20;i++){
+    const bubble = document.createElement("div");
+    const size = Math.random()*20 + 10;
+    bubble.style.width = size+"px";
+    bubble.style.height = size+"px";
+    bubble.style.background = ["pink","violet","yellow","purple"][Math.floor(Math.random()*4)];
+    bubble.style.left = Math.random()*window.innerWidth+"px";
+    bubble.style.top = Math.random()*window.innerHeight+"px";
+    bubblesContainer.appendChild(bubble);
+
+    let y = parseInt(bubble.style.top);
+    setInterval(()=>{
+      y -= Math.random()*1.5;
+      if(y < -30) y = window.innerHeight;
+      bubble.style.top = y + "px";
+    }, 50);
+  }
+}
+
+// ===== SIMPLE CONFETTI =====
+function startConfetti() {
+  const canvas = document.getElementById("confettiCanvas");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext("2d");
+
+  const confettis = [];
+  for(let i=0;i<150;i++){
+    confettis.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      size: Math.random()*6+4,
+      color: ["#ff69b4","#ffb6c1","#8a2be2","#ffd700","#ff4500"][Math.floor(Math.random()*5)],
+      dy: Math.random()*3+2
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    confettis.forEach(c => {
+      ctx.fillStyle = c.color;
+      ctx.fillRect(c.x, c.y, c.size, c.size);
+      c.y += c.dy;
+      if(c.y > canvas.height) c.y = -c.size;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
