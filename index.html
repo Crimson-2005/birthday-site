@@ -1,79 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Cheesy's Birthday Surprise 🎀</title> 
+  <meta charset="UTF-8">
+  <title>Somya 💖</title>
   <link rel="stylesheet" href="style.css">
-
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-
 <body>
-
-<!-- FLOATING BOWS & HEARTS -->
-<div class="floating" style="left:10%;">🎀</div>
-<div class="floating" style="left:25%;">💗</div>
-<div class="floating" style="left:40%;">✨</div>
-<div class="floating" style="left:60%;">🎀</div>
-<div class="floating" style="left:75%;">💖</div>
-<div class="floating" style="left:90%;">💜</div>
-
-<!-- MUSIC -->
-<audio id="birthdayBgm" loop>
- <source src="birthday.mp3" type="audio/mp3">
-</audio>
-
-<audio id="meowSfx">
- <source src="meow.mp3" type="audio/mp3">
-</audio>
 
 <!-- LOADING SCREEN -->
 <div id="loading">
   <div class="loader-box">
-    <div class="hearts">💗 💕 💜</div>
-    <h2>Loading something special...</h2>
-    <p id="intro-timer">5</p>
-    <div class="icons">🎂 ✨ 🎁 💖 🎈</div>
-    <button id="revealBtn" class="hidden" onclick="revealSurprise()">
-      Tap for your Surprise 🎁
-    </button>
+    <div class="hearts">🌸 💗 ✨</div>
+    <h2>Preparing something soft & special...</h2>
+    <p id="timer">5</p>
+    <button id="enterBtn" class="hidden">Enter ✨</button>
   </div>
 </div>
 
-<!-- MAIN -->
+<!-- MAIN CONTENT -->
 <div id="main" class="hidden">
   <div class="card">
-    <h1>Happy Birthday, Mozarella Cheese!!! 🧀</h1>
+    <h1>Happy Birthday, Somya 💖✨</h1>
 
     <p>
-      Happy Birthday, Aman!! 🥳🥳<br><br>
-      Tum bas do minute baat karte ho…<br>
-      Aur saamne wala officially fan ban jaata hai 😭💗<br><br>
-
-      Isiliye socha kuch khaas kiya jaaye…<br>
-      So here’s a little cheesy surprise for you 🧀💛<br><br>
-
-      Enjoy your dayy!!! 🎀
+      A day stitched in soft pink skies,<br>
+      little sparkles, and quiet smiles 🌸<br><br>
+      May everything you love find its way to you,<br>
+      gently… like light through curtains 🕊️✨<br><br>
+      This is just a tiny corner of magic,<br>
+      made only for you 🫧🎀
     </p>
 
-    <button onclick="showCheesySurprise()">Open your gift 🎁</button>
-
-    <div id="gameContainer" class="hidden">
-      <h2>Catch The Cheese 🧀</h2>
-      <p>Score: <span id="score">0</span></p>
-      <button onclick="startGame()">Start Game</button>
-      <div id="gameArea"></div>
-    </div>
+    <button id="revealBtn">Open ✨</button>
   </div>
 </div>
 
 <!-- SECRET -->
 <div id="secret" class="secret">
   <div class="card">
-    <h1>🎉 SECRET UNLOCKED 🎉</h1>
-    <p>MEOWWW 😼💗<br>Happy Birthday once again!!</p>
+    <h2>For You 🌸</h2>
+    <p>
+      Stay soft. Stay glowing. Stay you 💖<br>
+      The world already feels prettier because you’re in it ✨
+    </p>
     <button onclick="closeSecret()">Close 💌</button>
   </div>
 </div>
+
+<!-- SPARKLES -->
+<div id="sparkleContainer"></div>
 
 <script src="script.js"></script>
 </body>
