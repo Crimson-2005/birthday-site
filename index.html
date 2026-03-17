@@ -1,44 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birthday Surprise 🎉</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheesy's Birthday Surprise 🧀</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Loader -->
-  <div id="loader" class="loader">Loading...</div>
+<!-- BACKGROUND MUSIC -->
+<audio id="birthdayBgm" loop>
+  <source src="birthday.mp3" type="audio/mp3">
+</audio>
 
-  <!-- Main Content -->
-  <main id="main" class="hidden">
-    <!-- Confetti canvas -->
-    <canvas id="confettiCanvas"></canvas>
+<audio id="meowSfx">
+  <source src="meow.mp3" type="audio/mp3">
+</audio>
 
-    <!-- Hearts & Bubbles -->
-    <div id="heartsContainer"></div>
-    <div id="bubblesContainer"></div>
+<!-- LOADING SCREEN -->
+<div id="loading">
+  <h1>Surprise Loading...</h1>
+  <p id="intro-timer">5</p>
+  <button id="revealBtn" class="hidden" onclick="revealSurprise()">Click for your Surprise 🎁</button>
+</div>
 
-    <!-- Countdown / Celebration Box -->
-    <div class="card" id="card">
-      <div id="countdownBox">
-        <h2>Birthday Countdown</h2>
-        <div id="countdown"></div>
-      </div>
-      <div id="celebrationBox" class="hidden">
-        <h2>🎉 Happy Birthday! 🎉</h2>
-        <p>Surprise for you!</p>
-      </div>
+<!-- MAIN CONTENT -->
+<div id="main" class="hidden">
+  <!-- Floating Hearts & Bubbles -->
+  <div id="heartsContainer"></div>
+  <div id="bubblesContainer"></div>
+
+  <div class="card" id="card">
+    <div id="countdownBox">
+      <h2>Birthday Countdown</h2>
+      <div id="countdown"></div>
     </div>
 
-    <!-- Start Button -->
-    <button id="startButton" class="hidden">🎊 For You 🎊</button>
+    <div id="celebrationBox" class="hidden">
+      <h2>🎉 Happy Birthday! 🎉</h2>
+      <p>Surprise for you!</p>
+    </div>
+  </div>
 
-    <!-- Audio -->
-    <audio id="bgAudio" src="birthday.mp3" loop></audio>
-  </main>
+  <button id="startButton" class="hidden">🎊 For You 🎊</button>
+</div>
 
-  <script src="script.js"></script>
+<!-- SECRET POPUP -->
+<div id="secret" class="secret">
+  <h1>🎉 SECRET UNLOCKED 🎉</h1>
+  <p>
+    Secret surprise mil gaya? 😼<br><br>
+    Maza aayaa??<br>
+    Once again.. Happy Birthday Yaar!! 🎈💛
+  </p>
+  <button onclick="closeSecret()">Close Secret Mode</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
