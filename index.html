@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cheesy's Birthday Surprise 🧀</title>
-<link rel="stylesheet" href="style.css">
+  <title>Cheesy's Birthday Surprise 🧀</title> 
+  <link rel="stylesheet" href="style.css">
+
+  <!-- CONFETTI -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 </head>
+
 <body>
 
 <!-- BACKGROUND MUSIC -->
 <audio id="birthdayBgm" loop>
-  <source src="birthday.mp3" type="audio/mp3">
+ <source src="birthday.mp3" type="audio/mp3">
+</audio>
+
+<audio id="batmanBgm" loop>
+ <source src="batman.mp3" type="audio/mp3">
 </audio>
 
 <audio id="meowSfx">
-  <source src="meow.mp3" type="audio/mp3">
+ <source src="meow.mp3" type="audio/mp3">
 </audio>
 
 <!-- LOADING SCREEN -->
@@ -24,38 +31,83 @@
   <button id="revealBtn" class="hidden" onclick="revealSurprise()">Click for your Surprise 🎁</button>
 </div>
 
+<!-- BATS -->
+<div id="bats"></div>
+
 <!-- MAIN CONTENT -->
 <div id="main" class="hidden">
-  <!-- Floating Hearts & Bubbles -->
-  <div id="heartsContainer"></div>
-  <div id="bubblesContainer"></div>
+  <h1>Happy Birthday, Mozarella Cheese!!! 🧀</h1> 
+<p>
+Happy Birthday, Aman!! 🥳🥳<br><br>
 
-  <div class="card" id="card">
-    <div id="countdownBox">
-      <h2>Birthday Countdown</h2>
-      <div id="countdown"></div>
-    </div>
+Log bolte hain superheroes ke paas alag alag superpowers hote hain…<br>
+🕷️ Spider-Man ke paas uska spider-sense hota hai.<br>
+🤖 Iron Man ke paas uska high-tech suit hota hai.<br>
+🦇 Batman ke liye toh strategy, planning aur dramatic entry hi kaafi hai.<br><br>
 
-    <div id="celebrationBox" class="hidden">
-      <h2>🎉 Happy Birthday! 🎉</h2>
-      <p>Surprise for you!</p>
-    </div>
+Lekin…<br>
+Aapka superpower thoda alag hai.<br>
+Tum bas do minute baat karte ho…<br>
+Aur saamne wala officially fan ban jaata hai. 😭<br>
+Aur wahi toh tumhaari speciality hai.<br><br>
+
+Isiliye socha ki kuch khaas kiya jaaye aapke liye..<br>
+Lekin, hotwheels ka budget to mere paas nahi hai 🥲<br>
+Naa aapke liye main batman ko bula sakti hoon..<br>
+Magar aap jaise insaan ke efforts daalna toh justified hai..<br>
+Ab aapne bhi toh mere liye french fries khareedne ka try kiya tha <br> 
+[ yeh alag baat hai ki meri kismat bekar thi lekin your efforts mattered more for me ] <br>
+Isliye aapko ek cheesy sa gift de rahi hoon.. 💛<br><br>
+
+Baaki... aise hi humesha haste rehna aur sabko hasaate rehnaa.<br>
+I hope you like ur gift :)<br>
+Enjoyy your dayy!!! 🧀<br><br>
+
+Waiseee cheesy... Aap apne bday pe cheesecake kaatne ke plan mein ho kya??
+</p>
+  <button onclick="showCheesySurprise()">Click for another cheesy surprise 😈</button>
+
+  <!-- GAME -->
+  <div id="gameContainer" class="hidden">
+ <h2>Catch The Cheese 🧀</h2>
+
+<p>
+ Gotham mein aaj ek chhota sa secret mission shuru ho raha hai.
+Aur Agent Cheesy duty par hai. 🦇
+</p>
+
+<p>
+ Mission simple hai. Cheeses catch karte jao.
+Jab kaafi ho jayenge… tab ek hidden surprise unlock hoga. 😉
+</p>
+
+    <p>Score: <span id="score">0</span></p>
+    <button onclick="startGame()">Start Game</button>
+    <div id="gameArea"></div>
   </div>
-
-  <button id="startButton" class="hidden">🎊 For You 🎊</button>
 </div>
 
-<!-- SECRET POPUP -->
+<!-- SECRET PAGE -->
 <div id="secret" class="secret">
   <h1>🎉 SECRET UNLOCKED 🎉</h1>
+
   <p>
-    Secret surprise mil gaya? 😼<br><br>
+    Secret surprise mil gaya? Smart guy !! <br><br>
+    Makha ladlee…<br>
+    MEOWWWWWWWWW 😼<br>
+    GHOP GHOP GHOP GHOP <br><br>
     Maza aayaa??<br>
-    Once again.. Happy Birthday Yaar!! 🎈💛
+    Once again.. Happy Birthday Yaar!!<br>
+    Party tayyar rakhna...heheehe 💛 
   </p>
+
+  <button onclick="showCertificate()">Download Your Cheesy Certificate 🧾</button> 
   <button onclick="closeSecret()">Close Secret Mode</button>
 </div>
 
 <script src="script.js"></script>
 </body>
 </html>
+
+
+
