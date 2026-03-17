@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Somya 💖</title>
+  <title>Somya's Dreamy Birthday 💖</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
 <div id="loading">
   <div class="loader-box">
     <div class="hearts">🌸 💗 ✨</div>
-    <h2>Preparing something soft & special...</h2>
+    <h2>Preparing your magical birthday…</h2>
     <p id="timer">5</p>
     <button id="enterBtn" class="hidden">Enter ✨</button>
   </div>
@@ -19,35 +19,42 @@
 
 <!-- MAIN CONTENT -->
 <div id="main" class="hidden">
-  <div class="card">
-    <h1>Happy Birthday, Somya 💖✨</h1>
 
-    <p>
-      A day stitched in soft pink skies,<br>
-      little sparkles, and quiet smiles 🌸<br><br>
-      May everything you love find its way to you,<br>
-      gently… like light through curtains 🕊️✨<br><br>
-      This is just a tiny corner of magic,<br>
-      made only for you 🫧🎀
-    </p>
-
-    <button id="revealBtn">Open ✨</button>
+  <!-- Letter & Ribbon -->
+  <div id="letter" class="letter">
+    <div class="ribbon"></div>
+    <div class="letter-folded">
+      <p>Click to Open 💌</p>
+    </div>
+    <div class="letter-opened hidden">
+      <h1>Happy Birthday, Somya 💖✨</h1>
+      <p>
+        May your day float in soft blush skies 🌸, sparkles ✨ and tiny wonders 🫧🎀
+      </p>
+      <button id="gameBtn">Play a little game 🎈</button>
+    </div>
   </div>
+
+  <!-- GAME -->
+  <div id="gameContainer" class="hidden">
+    <h2>Catch the Sparkle Hearts ✨</h2>
+    <p>Score: <span id="score">0</span></p>
+    <button id="startGame">Start Game</button>
+    <div id="gameArea"></div>
+  </div>
+
 </div>
 
 <!-- SECRET -->
 <div id="secret" class="secret">
   <div class="card">
-    <h2>For You 🌸</h2>
-    <p>
-      Stay soft. Stay glowing. Stay you 💖<br>
-      The world already feels prettier because you’re in it ✨
-    </p>
+    <h2>Surprise Unlocked 🌸</h2>
+    <p>Soft wishes, sparkles, and hugs for you 💖✨</p>
     <button onclick="closeSecret()">Close 💌</button>
   </div>
 </div>
 
-<!-- SPARKLES -->
+<!-- SPARKLE CONTAINER -->
 <div id="sparkleContainer"></div>
 
 <script src="script.js"></script>
