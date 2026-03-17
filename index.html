@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise 🎉</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Surprise 🎉</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <!-- Loader -->
   <div id="loader" class="loader">Loading...</div>
 
   <!-- Main Content -->
   <main id="main" class="hidden">
-    <!-- Confetti container -->
+    <!-- Confetti canvas -->
     <canvas id="confettiCanvas"></canvas>
-    <!-- Floating hearts -->
+
+    <!-- Hearts & Bubbles -->
     <div id="heartsContainer"></div>
+    <div id="bubblesContainer"></div>
 
     <!-- Countdown / Celebration Box -->
     <div class="card" id="card">
@@ -34,11 +37,8 @@
 
     <!-- Audio -->
     <audio id="bgAudio" src="birthday.mp3" loop></audio>
-
-    <!-- Bubbles -->
-    <div id="bubblesContainer"></div>
   </main>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
