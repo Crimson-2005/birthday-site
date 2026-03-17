@@ -1,8 +1,4 @@
-// ==================== AUDIO ====================
-const birthdayBgm = document.getElementById("birthdayBgm");
-const sparkleSfx = document.getElementById("sparkleSfx"); // cute sound effect for hearts
-
-// ==================== INTRO COUNTDOWN ====================
+// ====== INTRO COUNTDOWN ======
 let time = 5;
 let timerEl = document.getElementById("intro-timer");
 let revealBtn = document.getElementById("revealBtn");
@@ -10,137 +6,131 @@ let revealBtn = document.getElementById("revealBtn");
 let timer = setInterval(() => {
   time--;
   timerEl.innerText = time;
-
-  if (time <= 0) {
-    clearInterval(timer);
-    revealBtn.classList.remove("hidden");
-  }
+  if(time <=0) { clearInterval(timer); revealBtn.classList.remove("hidden"); }
 }, 1000);
 
-// ==================== FIRST SURPRISE ====================
-function revealSurprise() {
-  document.getElementById("loading").style.display = "none";
+// ====== AOS + CONFETTI ======
+AOS.init({ duration:800, once:true });
+window.onload = function() {
+  confetti({ particleCount:150, spread:70, origin:{y:0.6} });
+};
 
-  const main = document.getElementById("main");
-  main.classList.remove("hidden");
-  setTimeout(() => main.classList.add("show"), 100);
+// ====== HEARTS + BALLOONS ANIMATION ======
+const heartContainer = document.querySelector('.hearts');
+const balloonArea = document.getElementById('balloons');
 
-  // Start floating hearts/bows
-  startHearts();
+setInterval(()=>{
+  const heart = document.createElement('span');
+  heart.textContent='💖';
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.fontSize=Math.random()*10+15+'px';
+  heart.style.animationDuration=Math.random()*3+4+'s';
+  heartContainer.appendChild(heart);
+  setTimeout(()=>heart.remove(),7000);
 
-  // Play birthday music
-  birthdayBgm.currentTime = 0;
-  birthdayBgm.volume = 0.3;
-  birthdayBgm.play();
+  const b = document.createElement('span');
+  b.textContent='🎈';
+  b.style.left=Math.random()*100+'vw';
+  b.style.fontSize=Math.random()*30+30+'px';
+  balloonArea.appendChild(b);
+  setTimeout(()=>b.remove(),13000);
+},500);
+
+// ====== GAME LOGIC ======
+let heartScore=0, heartInterval;
+
+function startHeartGame() {
+  document.getElementById("loading").style.display="none";
+  document.getElementById("gameIntro").classList.remove("hidden");
+  heartScore=0;
+  const box = document.getElementById("gameBox");
+  box.innerHTML=`<div id="gameScore">Score: 0 / 7</div>`;
+  heartInterval=setInterval(spawnHeart,900);
 }
 
-// ==================== SECOND SURPRISE (Secret Game) ====================
-function showCheesySurprise() {
-  const gameContainer = document.getElementById("gameContainer");
-  gameContainer.classList.remove("hidden");
-
-  startHeartDropsGame(); // optional interactive hearts game
+function spawnHeart(){
+  const box=document.getElementById("gameBox");
+  const heart=document.createElement("span");
+  heart.innerText="💖";
+  heart.classList.add("click-heart");
+  heart.style.left=Math.random()*85+"%";
+  heart.style.top=Math.random()*75+"%";
+  heart.onclick=function(){
+    heart.remove();
+    heartScore++;
+    document.getElementById("gameScore").innerText="Score: "+heartScore+" / 7";
+    if(heartScore>=7){ clearInterval(heartInterval); setTimeout(()=>startBalloonGame(),600); }
+  };
+  box.appendChild(heart);
+  setTimeout(()=>heart.remove(),3000);
 }
 
-// ==================== HEARTS & BOWS FLOATING ====================
-const heartsContainer = document.createElement("div");
-heartsContainer.id = "heartsContainer";
-document.body.appendChild(heartsContainer);
-
-function startHearts() {
-  const hearts = [];
-
-  function createHeart() {
-    const heart = document.createElement("div");
-    const size = Math.random() * 25 + 15;
-
-    const types = ["💖","🎀","✨","💞"];
-    heart.innerText = types[Math.floor(Math.random()*types.length)];
-    heart.style.fontSize = size + "px";
-    heart.style.position = "absolute";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.bottom = "-50px";
-    heartsContainer.appendChild(heart);
-
-    hearts.push({el: heart, y: -50, speed: Math.random()*1.5+0.5});
-  }
-
-  setInterval(createHeart, 300);
-
-  function animateHearts() {
-    hearts.forEach((h,i)=>{
-      h.y += h.speed;
-      h.el.style.bottom = h.y + "px";
-      h.el.style.transform = `translateX(${Math.sin(h.y/20)*10}px) rotate(${h.y}deg)`;
-      if(h.y > window.innerHeight + 50){
-        h.el.remove();
-        hearts.splice(i,1);
-      }
-    });
-    requestAnimationFrame(animateHearts);
-  }
-
-  animateHearts();
-}
-
-// ==================== SECRET UNLOCK ====================
-function unlockSecret() {
-  // Stop heart drops game if any
-  if(window.heartInterval) clearInterval(window.heartInterval);
-
-  // Play sparkle sound effect
-  sparkleSfx.currentTime = 0;
-  sparkleSfx.play();
-
-  const secret = document.getElementById("secret");
-  secret.classList.add("show-secret");
-
-  // Optional: explode hearts instead of confetti
-  explodeHearts();
-}
-
-// ==================== HEARTS “EXPLOSION” ====================
-function explodeHearts() {
-  for(let i=0; i<50; i++){
-    const heart = document.createElement("div");
-    const size = Math.random()*20 + 15;
-    const types = ["💖","🎀","✨","💞"];
-    heart.innerText = types[Math.floor(Math.random()*types.length)];
-    heart.style.fontSize = size + "px";
-    heart.style.position = "fixed";
-    heart.style.left = window.innerWidth/2 + "px";
-    heart.style.top = window.innerHeight/2 + "px";
-    heart.style.opacity = 0.9;
-    heart.style.pointerEvents = "none";
-    document.body.appendChild(heart);
-
-    let angle = Math.random() * 2*Math.PI;
-    let distance = Math.random()*200 + 100;
-
-    heart.animate([
-      { transform: `translate(0px,0px) scale(1)` },
-      { transform: `translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px) scale(1.5)`, opacity:0 }
-    ], {
-      duration: 1500 + Math.random()*500,
-      easing: "ease-out",
-    });
-
-    setTimeout(()=> heart.remove(),2000);
+function startBalloonGame(){
+  document.getElementById("gameTitle").innerText="Game 2: Find Lucky Balloon 🎈";
+  document.getElementById("gameBox").innerHTML="";
+  document.getElementById("gameMessage").innerText="Choose wisely 😏";
+  const lucky=Math.floor(Math.random()*3);
+  for(let i=0;i<3;i++){
+    const balloon=document.createElement("div");
+    balloon.classList.add("choice-box");
+    balloon.innerText="🎈";
+    balloon.onclick=function(){ if(i===lucky) startBoxGame(); else document.getElementById("gameMessage").innerText="Oops 😜 Try Again!"; };
+    document.getElementById("gameBox").appendChild(balloon);
   }
 }
 
-// ==================== CERTIFICATE ====================
-function showCertificate() {
-  explodeHearts();
+function startBoxGame(){
+  document.getElementById("gameTitle").innerText="Game 3: Catch Compliments 💖";
+  const box=document.getElementById("gameBox");
+  box.innerHTML="";
+  document.getElementById("gameMessage").innerText="Good words click karo! Wrong pe mat click karna 😌";
+  let score=0, gameActive=true;
+  const goodWords=["Choco Puff 🍫","Gulabo 💐","Cutie Patootie 🫧","Bestie 🫶","Paglu 😜"];
+  const badWords=["Drama Frog 🐸","Sleepy Potato 🥔","Ziddi Zombie 🧟","Manjulika 👻"];
+  const scoreDisplay=document.createElement("div");
+  scoreDisplay.id="scoreDisplay";
+  scoreDisplay.innerText="Score: 0";
+  const gameArea=document.createElement("div");
+  gameArea.id="catchGameArea";
+  box.appendChild(scoreDisplay);
+  box.appendChild(gameArea);
+  function createFallingWord(){
+    if(!gameActive) return;
+    const word=document.createElement("div");
+    word.classList.add("falling-word");
+    const isGood=Math.random()>0.4;
+    word.innerText=isGood?goodWords[Math.floor(Math.random()*goodWords.length)]:badWords[Math.floor(Math.random()*badWords.length)];
+    word.dataset.good=isGood;
+    word.style.left=Math.random()*280+"px";
+    gameArea.appendChild(word);
+    let topPosition=0;
+    const fallInterval=setInterval(()=>{
+      if(!gameActive){clearInterval(fallInterval);return;}
+      topPosition+=0.5;
+      word.style.top=topPosition+"px";
+      if(topPosition>260){ word.remove(); clearInterval(fallInterval); }
+    },30);
+    word.onclick=function(){
+      if(!gameActive) return;
+      if(word.dataset.good==="true") score++; else score=Math.max(0,score-1);
+      scoreDisplay.innerText="Score: "+score;
+      word.remove(); clearInterval(fallInterval);
+      if(score>=10){ gameActive=false; setTimeout(unlockMainContent,800); }
+    };
+  }
+  setInterval(createFallingWord,1000);
+}
+
+function unlockMainContent(){
+  document.getElementById("gameIntro").style.display="none";
+  const mainContent=document.getElementById("mainContent");
+  mainContent.style.display="block";  
   setTimeout(()=>{
-    const link = document.createElement("a");
-    link.href = "certificate.png";
-    link.download = "Birthday_Certificate.png";
-    link.click();
-  },2000);
-}
-
-// ==================== CLOSE SECRET ====================
-function closeSecret() {
-  document.getElementById("secret").classList.remove("show-secret");
+    mainContent.style.opacity="1"; mainContent.style.pointerEvents="auto";
+    const cards=mainContent.querySelectorAll(".card");
+    const observer=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add("show"); });
+    },{ threshold:0.2 });
+    cards.forEach(card=>observer.observe(card));
+  },100);
 }
