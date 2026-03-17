@@ -1,61 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Somya's Dreamy Birthday 💖</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise 🎉</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Loader -->
+  <div id="loader" class="loader">Loading...</div>
 
-<!-- LOADING SCREEN -->
-<div id="loading">
-  <div class="loader-box">
-    <div class="hearts">🌸 💗 ✨</div>
-    <h2>Preparing your magical birthday…</h2>
-    <p id="timer">5</p>
-    <button id="enterBtn" class="hidden">Enter ✨</button>
-  </div>
-</div>
+  <!-- Main Content -->
+  <main id="main" class="hidden">
+    <!-- Confetti container -->
+    <canvas id="confettiCanvas"></canvas>
+    <!-- Floating hearts -->
+    <div id="heartsContainer"></div>
 
-<!-- MAIN CONTENT -->
-<div id="main" class="hidden">
-
-  <!-- Letter & Ribbon -->
-  <div id="letter" class="letter">
-    <div class="ribbon"></div>
-    <div class="letter-folded">
-      <p>Click to Open 💌</p>
+    <!-- Countdown / Celebration Box -->
+    <div class="card" id="card">
+      <div id="countdownBox">
+        <h2>Birthday Countdown</h2>
+        <div id="countdown"></div>
+      </div>
+      <div id="celebrationBox" class="hidden">
+        <h2>🎉 Happy Birthday! 🎉</h2>
+        <p>Surprise for you!</p>
+      </div>
     </div>
-    <div class="letter-opened hidden">
-      <h1>Happy Birthday, Somya 💖✨</h1>
-      <p>
-        May your day float in soft blush skies 🌸, sparkles ✨ and tiny wonders 🫧🎀
-      </p>
-      <button id="gameBtn">Play a little game 🎈</button>
-    </div>
-  </div>
 
-  <!-- GAME -->
-  <div id="gameContainer" class="hidden">
-    <h2>Catch the Sparkle Hearts ✨</h2>
-    <p>Score: <span id="score">0</span></p>
-    <button id="startGame">Start Game</button>
-    <div id="gameArea"></div>
-  </div>
+    <!-- Start Button -->
+    <button id="startButton" class="hidden">🎊 For You 🎊</button>
 
-</div>
+    <!-- Audio -->
+    <audio id="bgAudio" src="birthday.mp3" loop></audio>
 
-<!-- SECRET -->
-<div id="secret" class="secret">
-  <div class="card">
-    <h2>Surprise Unlocked 🌸</h2>
-    <p>Soft wishes, sparkles, and hugs for you 💖✨</p>
-    <button onclick="closeSecret()">Close 💌</button>
-  </div>
-</div>
-
-<!-- SPARKLE CONTAINER -->
-<div id="sparkleContainer"></div>
+    <!-- Bubbles -->
+    <div id="bubblesContainer"></div>
+  </main>
 
 <script src="script.js"></script>
 </body>
