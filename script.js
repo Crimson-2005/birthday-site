@@ -1,7 +1,6 @@
 // ==================== AUDIO ====================
 const birthdayBgm = document.getElementById("birthdayBgm");
-const batmanBgm = document.getElementById("batmanBgm");
-const meowSfx = document.getElementById("meowSfx");
+const sparkleSfx = document.getElementById("sparkleSfx"); // cute sound effect for hearts
 
 // ==================== INTRO COUNTDOWN ====================
 let time = 5;
@@ -26,145 +25,122 @@ function revealSurprise() {
   main.classList.remove("hidden");
   setTimeout(() => main.classList.add("show"), 100);
 
-  spawnBats();
+  // Start floating hearts/bows
+  startHearts();
 
-  // Play birthday music (allowed because user clicked)
+  // Play birthday music
   birthdayBgm.currentTime = 0;
   birthdayBgm.volume = 0.3;
   birthdayBgm.play();
 }
 
-// ==================== SECOND SURPRISE ====================
+// ==================== SECOND SURPRISE (Secret Game) ====================
 function showCheesySurprise() {
-  document.getElementById("gameContainer").classList.remove("hidden");
+  const gameContainer = document.getElementById("gameContainer");
+  gameContainer.classList.remove("hidden");
+
+  startHeartDropsGame(); // optional interactive hearts game
 }
-// ==================== BATS ====================
-function spawnBats() {
-  const container = document.getElementById("bats");
 
-  for (let i = 0; i < 10; i++) {
-    let bat = document.createElement("div");
-    bat.className = "bat";
-    container.appendChild(bat);
+// ==================== HEARTS & BOWS FLOATING ====================
+const heartsContainer = document.createElement("div");
+heartsContainer.id = "heartsContainer";
+document.body.appendChild(heartsContainer);
 
-    let x = Math.random() * window.innerWidth;
-    let y = Math.random() * window.innerHeight;
-    let sx = (Math.random() - 0.5) * 2;
-    let sy = (Math.random() - 0.5) * 2;
+function startHearts() {
+  const hearts = [];
 
-    function move() {
-      x += sx;
-      y += sy;
+  function createHeart() {
+    const heart = document.createElement("div");
+    const size = Math.random() * 25 + 15;
 
-      if (x < 0 || x > innerWidth) sx *= -1;
-      if (y < 0 || y > innerHeight) sy *= -1;
+    const types = ["💖","🎀","✨","💞"];
+    heart.innerText = types[Math.floor(Math.random()*types.length)];
+    heart.style.fontSize = size + "px";
+    heart.style.position = "absolute";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "-50px";
+    heartsContainer.appendChild(heart);
 
-      bat.style.left = x + "px";
-      bat.style.top = y + "px";
-
-      requestAnimationFrame(move);
-    }
-
-    move();
+    hearts.push({el: heart, y: -50, speed: Math.random()*1.5+0.5});
   }
-}
 
-// ==================== GAME LOGIC ====================
-let score = 0;
-let gameInterval;
+  setInterval(createHeart, 300);
 
-function startGame() {
-  const gameArea = document.getElementById("gameArea");
-  if (!gameArea) return;
+  function animateHearts() {
+    hearts.forEach((h,i)=>{
+      h.y += h.speed;
+      h.el.style.bottom = h.y + "px";
+      h.el.style.transform = `translateX(${Math.sin(h.y/20)*10}px) rotate(${h.y}deg)`;
+      if(h.y > window.innerHeight + 50){
+        h.el.remove();
+        hearts.splice(i,1);
+      }
+    });
+    requestAnimationFrame(animateHearts);
+  }
 
-  score = 0;
-  document.getElementById("score").innerText = score;
-
-  clearInterval(gameInterval);
-
-  // Stop birthday music
-  birthdayBgm.pause();
-
-  // 🔥 Play Batman music ONLY now
-  batmanBgm.currentTime = 0;
-  batmanBgm.volume = 0.3;
-  batmanBgm.play();
-
-  gameInterval = setInterval(dropCheese, 800);
-}
-
-
-// ==================== DROP CHEESE ====================
-function dropCheese() {
-  const gameArea = document.getElementById("gameArea");
-  if (!gameArea) return;
-
-  const cheese = document.createElement("div");
-  cheese.className = "cheese";
-  cheese.innerText = "🧀";
-
-  cheese.style.left =
-    Math.random() * (gameArea.clientWidth - 40) + "px";
-
-  cheese.onclick = () => {
-    score++;
-    document.getElementById("score").innerText = score;
-    cheese.remove();
-
-    if (score >= 7) {
-      unlockSecret();
-    }
-  };
-
-  gameArea.appendChild(cheese);
-
-  setTimeout(() => {
-    cheese.remove();
-  }, 5000);
+  animateHearts();
 }
 
 // ==================== SECRET UNLOCK ====================
 function unlockSecret() {
-  clearInterval(gameInterval);
+  // Stop heart drops game if any
+  if(window.heartInterval) clearInterval(window.heartInterval);
 
-  batmanBgm.pause();
-  meowSfx.currentTime = 0;
-  meowSfx.play();
+  // Play sparkle sound effect
+  sparkleSfx.currentTime = 0;
+  sparkleSfx.play();
 
   const secret = document.getElementById("secret");
   secret.classList.add("show-secret");
 
-  confetti({
-    particleCount: 250,
-    spread: 140,
-    origin: { y: 0.6 }
-  });
+  // Optional: explode hearts instead of confetti
+  explodeHearts();
+}
 
-  setTimeout(() => {
-    confetti({
-      particleCount: 180,
-      spread: 160,
-      origin: { y: 0.3 }
+// ==================== HEARTS “EXPLOSION” ====================
+function explodeHearts() {
+  for(let i=0; i<50; i++){
+    const heart = document.createElement("div");
+    const size = Math.random()*20 + 15;
+    const types = ["💖","🎀","✨","💞"];
+    heart.innerText = types[Math.floor(Math.random()*types.length)];
+    heart.style.fontSize = size + "px";
+    heart.style.position = "fixed";
+    heart.style.left = window.innerWidth/2 + "px";
+    heart.style.top = window.innerHeight/2 + "px";
+    heart.style.opacity = 0.9;
+    heart.style.pointerEvents = "none";
+    document.body.appendChild(heart);
+
+    let angle = Math.random() * 2*Math.PI;
+    let distance = Math.random()*200 + 100;
+
+    heart.animate([
+      { transform: `translate(0px,0px) scale(1)` },
+      { transform: `translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px) scale(1.5)`, opacity:0 }
+    ], {
+      duration: 1500 + Math.random()*500,
+      easing: "ease-out",
     });
-  }, 700);
+
+    setTimeout(()=> heart.remove(),2000);
+  }
 }
 
 // ==================== CERTIFICATE ====================
 function showCertificate() {
-  confetti({ particleCount: 300, spread: 160 });
-
-  setTimeout(() => {
+  explodeHearts();
+  setTimeout(()=>{
     const link = document.createElement("a");
     link.href = "certificate.png";
-    link.download = "Mozarella_Master_Certificate.png";
+    link.download = "Birthday_Certificate.png";
     link.click();
-  }, 2000);
+  },2000);
 }
 
 // ==================== CLOSE SECRET ====================
 function closeSecret() {
-  document
-    .getElementById("secret")
-    .classList.remove("show-secret");
+  document.getElementById("secret").classList.remove("show-secret");
 }
-
