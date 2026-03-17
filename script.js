@@ -1,111 +1,170 @@
+// ==================== AUDIO ====================
 const birthdayBgm = document.getElementById("birthdayBgm");
+const batmanBgm = document.getElementById("batmanBgm");
 const meowSfx = document.getElementById("meowSfx");
-const timerEl = document.getElementById("intro-timer");
-const revealBtn = document.getElementById("revealBtn");
-const main = document.getElementById("main");
-const startButton = document.getElementById("startButton");
-const heartsContainer = document.getElementById("heartsContainer");
-const bubblesContainer = document.getElementById("bubblesContainer");
-const secret = document.getElementById("secret");
 
+// ==================== INTRO COUNTDOWN ====================
 let time = 5;
-let timer = setInterval(()=>{
+let timerEl = document.getElementById("intro-timer");
+let revealBtn = document.getElementById("revealBtn");
+
+let timer = setInterval(() => {
   time--;
   timerEl.innerText = time;
-  if(time<=0){
+
+  if (time <= 0) {
     clearInterval(timer);
     revealBtn.classList.remove("hidden");
   }
-},1000);
+}, 1000);
 
-// ===== FIRST SURPRISE (SECRET POPUP) =====
-function revealSurprise(){
-  document.getElementById("loading").style.display="none";
+// ==================== FIRST SURPRISE ====================
+function revealSurprise() {
+  document.getElementById("loading").style.display = "none";
+
+  const main = document.getElementById("main");
   main.classList.remove("hidden");
-  main.style.opacity=0;
-  main.style.transform="scale(0.5)";
-  setTimeout(()=>{
-    main.style.transition="all 1s ease";
-    main.style.opacity=1;
-    main.style.transform="scale(1)";
-  },50);
+  setTimeout(() => main.classList.add("show"), 100);
 
-  birthdayBgm.currentTime=0;
-  birthdayBgm.volume=0.3;
+  spawnBats();
+
+  // Play birthday music (allowed because user clicked)
+  birthdayBgm.currentTime = 0;
+  birthdayBgm.volume = 0.3;
   birthdayBgm.play();
-
-  startHearts();
-  startBubbles();
 }
 
-// ===== START BUTTON =====
-startButton.addEventListener("click",()=>{
-  startButton.style.display="none";
-  document.getElementById("celebrationBox").classList.remove("hidden");
-});
+// ==================== SECOND SURPRISE ====================
+function showCheesySurprise() {
+  document.getElementById("gameContainer").classList.remove("hidden");
+}
+// ==================== BATS ====================
+function spawnBats() {
+  const container = document.getElementById("bats");
 
-// ===== FLOATING HEARTS =====
-function startHearts(){
-  const hearts=[];
-  function createHeart(){
-    const heart=document.createElement("div");
-    const size=Math.random()*20+10;
-    heart.style.width=size+"px";
-    heart.style.height=size+"px";
-    heart.style.background="pink";
-    heart.style.left=Math.random()*window.innerWidth+"px";
-    heart.style.bottom="-50px";
-    heartsContainer.appendChild(heart);
+  for (let i = 0; i < 10; i++) {
+    let bat = document.createElement("div");
+    bat.className = "bat";
+    container.appendChild(bat);
 
-    hearts.push({el:heart,y:parseFloat(heart.style.bottom),speed:Math.random()*1.5+0.5});
+    let x = Math.random() * window.innerWidth;
+    let y = Math.random() * window.innerHeight;
+    let sx = (Math.random() - 0.5) * 2;
+    let sy = (Math.random() - 0.5) * 2;
+
+    function move() {
+      x += sx;
+      y += sy;
+
+      if (x < 0 || x > innerWidth) sx *= -1;
+      if (y < 0 || y > innerHeight) sy *= -1;
+
+      bat.style.left = x + "px";
+      bat.style.top = y + "px";
+
+      requestAnimationFrame(move);
+    }
+
+    move();
   }
-  setInterval(createHeart,300);
-
-  function animateHearts(){
-    hearts.forEach((h,i)=>{
-      h.y+=h.speed;
-      h.el.style.bottom=h.y+"px";
-      h.el.style.transform=`translateX(${Math.sin(h.y/20)*10}px)`;
-      if(h.y>window.innerHeight+50){ h.el.remove(); hearts.splice(i,1);}
-    });
-    requestAnimationFrame(animateHearts);
-  }
-  animateHearts();
 }
 
-// ===== BUBBLES =====
-function startBubbles(){
-  const bubbles=[];
-  for(let i=0;i<20;i++){
-    const bubble=document.createElement("div");
-    const size=Math.random()*20+10;
-    bubble.style.width=size+"px";
-    bubble.style.height=size+"px";
-    bubble.style.background=["#ffb6c1","#d8bfd8","#ffff99","#dda0dd"][Math.floor(Math.random()*4)];
-    bubble.style.left=Math.random()*window.innerWidth+"px";
-    bubble.style.bottom="-50px";
-    bubblesContainer.appendChild(bubble);
-    bubbles.push({el:bubble,y:parseFloat(bubble.style.bottom),speed:Math.random()*1.2+0.5});
-  }
+// ==================== GAME LOGIC ====================
+let score = 0;
+let gameInterval;
 
-  function animateBubbles(){
-    bubbles.forEach(b=>{
-      b.y+=b.speed;
-      b.el.style.bottom=b.y+"px";
-      if(b.y>window.innerHeight+50){ b.y=-50; b.el.style.left=Math.random()*window.innerWidth+"px";}
-    });
-    requestAnimationFrame(animateBubbles);
-  }
-  animateBubbles();
+function startGame() {
+  const gameArea = document.getElementById("gameArea");
+  if (!gameArea) return;
+
+  score = 0;
+  document.getElementById("score").innerText = score;
+
+  clearInterval(gameInterval);
+
+  // Stop birthday music
+  birthdayBgm.pause();
+
+  // 🔥 Play Batman music ONLY now
+  batmanBgm.currentTime = 0;
+  batmanBgm.volume = 0.3;
+  batmanBgm.play();
+
+  gameInterval = setInterval(dropCheese, 800);
 }
 
-// ===== SECRET MODE =====
-function unlockSecret(){
-  meowSfx.currentTime=0;
+
+// ==================== DROP CHEESE ====================
+function dropCheese() {
+  const gameArea = document.getElementById("gameArea");
+  if (!gameArea) return;
+
+  const cheese = document.createElement("div");
+  cheese.className = "cheese";
+  cheese.innerText = "🧀";
+
+  cheese.style.left =
+    Math.random() * (gameArea.clientWidth - 40) + "px";
+
+  cheese.onclick = () => {
+    score++;
+    document.getElementById("score").innerText = score;
+    cheese.remove();
+
+    if (score >= 7) {
+      unlockSecret();
+    }
+  };
+
+  gameArea.appendChild(cheese);
+
+  setTimeout(() => {
+    cheese.remove();
+  }, 5000);
+}
+
+// ==================== SECRET UNLOCK ====================
+function unlockSecret() {
+  clearInterval(gameInterval);
+
+  batmanBgm.pause();
+  meowSfx.currentTime = 0;
   meowSfx.play();
+
+  const secret = document.getElementById("secret");
   secret.classList.add("show-secret");
+
+  confetti({
+    particleCount: 250,
+    spread: 140,
+    origin: { y: 0.6 }
+  });
+
+  setTimeout(() => {
+    confetti({
+      particleCount: 180,
+      spread: 160,
+      origin: { y: 0.3 }
+    });
+  }, 700);
 }
 
-function closeSecret(){
-  secret.classList.remove("show-secret");
+// ==================== CERTIFICATE ====================
+function showCertificate() {
+  confetti({ particleCount: 300, spread: 160 });
+
+  setTimeout(() => {
+    const link = document.createElement("a");
+    link.href = "certificate.png";
+    link.download = "Mozarella_Master_Certificate.png";
+    link.click();
+  }, 2000);
 }
+
+// ==================== CLOSE SECRET ====================
+function closeSecret() {
+  document
+    .getElementById("secret")
+    .classList.remove("show-secret");
+}
+
