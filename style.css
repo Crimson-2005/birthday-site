@@ -1,74 +1,52 @@
-@font-face {
-  font-family: "DreamyHand";
-  src: url("fonts/DreamyHand.ttf");
-}
+/* style.css */
 
 body {
   margin: 0;
-  font-family: "DreamyHand", sans-serif;
-  background: linear-gradient(180deg, #fff6f8, #fce4ec, #f3e8ff);
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #ffe4e6, #e0c3fc);
   overflow: hidden;
-  color: #5a3a3a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-/* LOADING */
-#loading {
-  position: fixed; inset:0;
-  display:flex; justify-content:center; align-items:center;
-  background: rgba(255,255,255,0.9);
-}
-.loader-box {
-  background: rgba(255,255,255,0.7);
-  padding: 30px;
-  border-radius: 30px;
-  backdrop-filter: blur(10px);
-  text-align:center;
-  border: 1px solid #f8c4d6;
-  animation: fadeIn 1.5s ease;
-}
-#timer { font-size: 3rem; color:#f48fb1; }
 .hidden { display: none; }
 
-/* MAIN CARD & LETTER */
-#main { height:100vh; display:flex; justify-content:center; align-items:center; flex-direction: column; }
-
-.letter { position:relative; cursor:pointer; width:300px; height:200px; margin-bottom:20px; }
-.ribbon {
-  width:300px; height:20px; background: #f48fb1;
-  position:absolute; top:50%; left:0; transform:translateY(-50%);
-  border-radius:10px;
-  transition: all 1s ease;
-}
-.letter-folded {
-  width:300px; height:200px; background:#fff6f8;
-  border-radius: 20px; display:flex; justify-content:center; align-items:center;
-  border: 2px solid #f8c4d6;
-  box-shadow: 0 10px 30px rgba(248,196,214,0.3);
-  transition: all 1s ease;
-}
-.letter-opened {
-  width:300px; background:rgba(255,255,255,0.7);
-  padding:20px; border-radius:20px; text-align:center;
+.loader {
+  font-size: 2rem;
+  color: #ff69b4;
 }
 
-/* GAME */
-#gameArea { width:90%; height:300px; border:2px dashed #f48fb1; margin:auto; border-radius:20px; position:relative; overflow:hidden; }
-.heart { position:absolute; font-size:30px; cursor:pointer; animation:fall linear forwards; }
-@keyframes fall { from{top:-40px;} to{top:320px;} }
+.card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 2rem;
+  padding: 2rem;
+  text-align: center;
+  border: 2px solid #ffb6c1;
+  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+}
 
-/* SECRET */
-.secret { position:fixed; inset:0; background: rgba(255,240,245,0.95); display:flex; justify-content:center; align-items:center; opacity:0; pointer-events:none; transition:0.5s; }
-.secret.show { opacity:1; pointer-events:auto; }
-.card { background: rgba(255,255,255,0.7); padding:30px; border-radius:30px; backdrop-filter: blur(12px); text-align:center; box-shadow:0 10px 40px rgba(248,196,214,0.3); }
+#startButton {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  border: 2px solid white;
+  background: linear-gradient(to right, #ff69b4, #8a2be2);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
 
-/* FLOATING EMOJIS & BALLOONS */
-.floating, .balloon { position:fixed; bottom:-50px; font-size:22px; opacity:0.7; pointer-events:none; animation:floatUp linear infinite; }
-@keyframes floatUp { 0%{transform:translateY(0) rotate(0deg); opacity:0;} 50%{opacity:1;} 100%{transform:translateY(-110vh) rotate(360deg); opacity:0;} }
+#startButton:hover {
+  transform: scale(1.05);
+}
 
-/* SPARKLES */
-#sparkleContainer { position:fixed; inset:0; pointer-events:none; overflow:hidden; }
-.sparkle { position:absolute; width:6px; height:6px; background: radial-gradient(circle,#fff,#ffadd6); border-radius:50%; animation:twinkle 1s linear; }
-@keyframes twinkle { from{opacity:1; transform:scale(1);} to{opacity:0; transform:scale(2);} }
-
-/* FADE */
-@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+/* Hearts & Bubbles */
+#heartsContainer div, #bubblesContainer div {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+}
