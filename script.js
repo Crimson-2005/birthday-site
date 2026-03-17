@@ -1,89 +1,72 @@
-const loader = document.getElementById("loader");
+const birthdayBgm = document.getElementById("birthdayBgm");
+const meowSfx = document.getElementById("meowSfx");
+const timerEl = document.getElementById("intro-timer");
+const revealBtn = document.getElementById("revealBtn");
 const main = document.getElementById("main");
-const countdownEl = document.getElementById("countdown");
 const startButton = document.getElementById("startButton");
-const bgAudio = document.getElementById("bgAudio");
-const countdownBox = document.getElementById("countdownBox");
-const celebrationBox = document.getElementById("celebrationBox");
 const heartsContainer = document.getElementById("heartsContainer");
 const bubblesContainer = document.getElementById("bubblesContainer");
-const confettiCanvas = document.getElementById("confettiCanvas");
+const secret = document.getElementById("secret");
 
-// ===== LOADER =====
-setTimeout(() => {
-  loader.style.display = "none";
-  main.classList.remove("hidden");
-}, 1500);
-
-// ===== COUNTDOWN =====
-const birthdayDate = new Date("April 28, 2025").getTime();
-
-function updateCountdown() {
-  const now = new Date().getTime();
-  const diff = birthdayDate - now;
-
-  if (diff <= 0) {
-    countdownBox.style.display = "none";
-    startButton.classList.remove("hidden");
-    clearInterval(interval);
-    return;
+let time = 5;
+let timer = setInterval(()=>{
+  time--;
+  timerEl.innerText = time;
+  if(time<=0){
+    clearInterval(timer);
+    revealBtn.classList.remove("hidden");
   }
+},1000);
 
-  const days = Math.floor(diff / (1000*60*60*24));
-  const hours = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
-  const mins = Math.floor((diff % (1000*60*60))/(1000*60));
-  const secs = Math.floor((diff % (1000*60))/1000);
+// ===== FIRST SURPRISE (SECRET POPUP) =====
+function revealSurprise(){
+  document.getElementById("loading").style.display="none";
+  main.classList.remove("hidden");
+  main.style.opacity=0;
+  main.style.transform="scale(0.5)";
+  setTimeout(()=>{
+    main.style.transition="all 1s ease";
+    main.style.opacity=1;
+    main.style.transform="scale(1)";
+  },50);
 
-  countdownEl.innerText = `${days}d ${hours}h ${mins}m ${secs}s`;
-}
-
-const interval = setInterval(updateCountdown, 1000);
-updateCountdown();
-
-// ===== START CELEBRATION =====
-startButton.addEventListener("click", () => {
-  startButton.style.display = "none";
-  celebrationBox.classList.remove("hidden");
-  bgAudio.volume = 0.8;
-  bgAudio.play().catch(e => console.log("Play blocked:", e));
+  birthdayBgm.currentTime=0;
+  birthdayBgm.volume=0.3;
+  birthdayBgm.play();
 
   startHearts();
   startBubbles();
-  startConfetti();
+}
+
+// ===== START BUTTON =====
+startButton.addEventListener("click",()=>{
+  startButton.style.display="none";
+  document.getElementById("celebrationBox").classList.remove("hidden");
 });
 
 // ===== FLOATING HEARTS =====
-function startHearts() {
-  const hearts = [];
-  function createHeart() {
-    const heart = document.createElement("div");
-    const size = Math.random()*20 + 10;
-    heart.style.width = size + "px";
-    heart.style.height = size + "px";
-    heart.style.background = "pink";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.bottom = "-50px";
+function startHearts(){
+  const hearts=[];
+  function createHeart(){
+    const heart=document.createElement("div");
+    const size=Math.random()*20+10;
+    heart.style.width=size+"px";
+    heart.style.height=size+"px";
+    heart.style.background="pink";
+    heart.style.left=Math.random()*window.innerWidth+"px";
+    heart.style.bottom="-50px";
     heartsContainer.appendChild(heart);
 
-    hearts.push({
-      el: heart,
-      x: parseFloat(heart.style.left),
-      y: parseFloat(heart.style.bottom),
-      speed: Math.random()*1.5 + 0.5,
-    });
+    hearts.push({el:heart,y:parseFloat(heart.style.bottom),speed:Math.random()*1.5+0.5});
   }
+  setInterval(createHeart,300);
 
-  setInterval(createHeart, 300);
-
-  function animateHearts() {
-    hearts.forEach((h, i) => {
-      h.y += h.speed;
-      h.el.style.bottom = h.y + "px";
-      h.el.style.transform = `translateX(${Math.sin(h.y/20)*10}px)`;
-      if(h.y > window.innerHeight + 50){
-        h.el.remove();
-        hearts.splice(i,1);
-      }
+  function animateHearts(){
+    hearts.forEach((h,i)=>{
+      h.y+=h.speed;
+      h.el.style.bottom=h.y+"px";
+      h.el.style.transform=`translateX(${Math.sin(h.y/20)*10}px)`;
+      if(h.y>window.innerHeight+50){ h.el.remove(); hearts.splice(i,1);}
     });
     requestAnimationFrame(animateHearts);
   }
@@ -91,66 +74,38 @@ function startHearts() {
 }
 
 // ===== BUBBLES =====
-function startBubbles() {
-  const bubbles = [];
+function startBubbles(){
+  const bubbles=[];
   for(let i=0;i<20;i++){
-    const bubble = document.createElement("div");
-    const size = Math.random()*20 + 10;
-    bubble.style.width = size+"px";
-    bubble.style.height = size+"px";
-    bubble.style.background = ["#ffb6c1","#d8bfd8","#ffff99","#dda0dd"][Math.floor(Math.random()*4)];
-    bubble.style.left = Math.random()*window.innerWidth+"px";
-    bubble.style.bottom = "-50px";
+    const bubble=document.createElement("div");
+    const size=Math.random()*20+10;
+    bubble.style.width=size+"px";
+    bubble.style.height=size+"px";
+    bubble.style.background=["#ffb6c1","#d8bfd8","#ffff99","#dda0dd"][Math.floor(Math.random()*4)];
+    bubble.style.left=Math.random()*window.innerWidth+"px";
+    bubble.style.bottom="-50px";
     bubblesContainer.appendChild(bubble);
-
-    bubbles.push({
-      el: bubble,
-      y: parseFloat(bubble.style.bottom),
-      speed: Math.random()*1.2 + 0.5
-    });
+    bubbles.push({el:bubble,y:parseFloat(bubble.style.bottom),speed:Math.random()*1.2+0.5});
   }
 
-  function animateBubbles() {
+  function animateBubbles(){
     bubbles.forEach(b=>{
-      b.y += b.speed;
-      b.el.style.bottom = b.y + "px";
-      if(b.y > window.innerHeight + 50){
-        b.y = -50;
-        b.el.style.left = Math.random()*window.innerWidth+"px";
-      }
+      b.y+=b.speed;
+      b.el.style.bottom=b.y+"px";
+      if(b.y>window.innerHeight+50){ b.y=-50; b.el.style.left=Math.random()*window.innerWidth+"px";}
     });
     requestAnimationFrame(animateBubbles);
   }
   animateBubbles();
 }
 
-// ===== CONFETTI =====
-function startConfetti() {
-  const canvas = confettiCanvas;
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const ctx = canvas.getContext("2d");
+// ===== SECRET MODE =====
+function unlockSecret(){
+  meowSfx.currentTime=0;
+  meowSfx.play();
+  secret.classList.add("show-secret");
+}
 
-  const confettis = [];
-  for(let i=0;i<150;i++){
-    confettis.push({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      size: Math.random()*6+4,
-      color: ["#ff69b4","#ffb6c1","#8a2be2","#ffd700","#ff4500"][Math.floor(Math.random()*5)],
-      dy: Math.random()*3+2
-    });
-  }
-
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    confettis.forEach(c => {
-      ctx.fillStyle = c.color;
-      ctx.fillRect(c.x, c.y, c.size, c.size);
-      c.y += c.dy;
-      if(c.y > canvas.height) c.y = -c.size;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
+function closeSecret(){
+  secret.classList.remove("show-secret");
 }
