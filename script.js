@@ -1,79 +1,63 @@
-const birthdayBgm = document.getElementById("birthdayBgm");
-const meowSfx = document.getElementById("meowSfx");
-
+// LOADING TIMER
 let time = 5;
-let timerEl = document.getElementById("intro-timer");
-let revealBtn = document.getElementById("revealBtn");
+const timerEl = document.getElementById("timer");
+const enterBtn = document.getElementById("enterBtn");
 
-let timer = setInterval(() => {
+const countdown = setInterval(() => {
   time--;
   timerEl.innerText = time;
 
   if (time <= 0) {
-    clearInterval(timer);
-    revealBtn.classList.remove("hidden");
+    clearInterval(countdown);
+    enterBtn.classList.remove("hidden");
   }
 }, 1000);
 
-function revealSurprise() {
+// ENTER SITE
+enterBtn.onclick = () => {
   document.getElementById("loading").style.display = "none";
+  document.getElementById("main").classList.remove("hidden");
+};
 
-  const main = document.getElementById("main");
-  main.classList.remove("hidden");
-
-  birthdayBgm.volume = 0.3;
-  birthdayBgm.play();
+// FLOATING EMOJIS
+const emojis = ["🌸","✨","💖","🫧","🎀"];
+for(let i=0;i<25;i++){
+  const e = document.createElement("div");
+  e.className = "floating";
+  e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left = Math.random()*100 + "vw";
+  e.style.fontSize = 20 + Math.random()*20 + "px";
+  e.style.animationDuration = 8 + Math.random()*5 + "s";
+  document.body.appendChild(e);
 }
 
-function showCheesySurprise() {
-  document.getElementById("gameContainer").classList.remove("hidden");
+// BUBBLES
+for(let i=0;i<15;i++){
+  const b = document.createElement("div");
+  b.className = "bubble";
+  let size = 10 + Math.random()*20;
+  b.style.width = size + "px";
+  b.style.height = size + "px";
+  b.style.left = Math.random()*100 + "vw";
+  b.style.animationDuration = 10 + Math.random()*10 + "s";
+  document.body.appendChild(b);
 }
 
-let score = 0;
-let gameInterval;
+// SPARKLES
+document.addEventListener("mousemove", e => {
+  const s = document.createElement("div");
+  s.className = "sparkle";
+  s.style.left = e.clientX + "px";
+  s.style.top = e.clientY + "px";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(), 1000);
+});
 
-function startGame() {
-  score = 0;
-  document.getElementById("score").innerText = score;
-  gameInterval = setInterval(dropCheese, 800);
-}
+// SECRET
+document.getElementById("revealBtn").onclick = () => {
+  document.getElementById("secret").classList.add("show");
+};
 
-function dropCheese() {
-  const gameArea = document.getElementById("gameArea");
-
-  const cheese = document.createElement("div");
-  cheese.className = "cheese";
-  cheese.innerText = "🧀";
-
-  cheese.style.left =
-    Math.random() * (gameArea.clientWidth - 40) + "px";
-
-  cheese.onclick = () => {
-    score++;
-    document.getElementById("score").innerText = score;
-    cheese.remove();
-
-    if (score >= 7) unlockSecret();
-  };
-
-  gameArea.appendChild(cheese);
-
-  setTimeout(() => cheese.remove(), 5000);
-}
-
-function unlockSecret() {
-  clearInterval(gameInterval);
-
-  meowSfx.play();
-
-  document.getElementById("secret").classList.add("show-secret");
-
-  confetti({
-    particleCount: 200,
-    spread: 120
-  });
-}
-
-function closeSecret() {
-  document.getElementById("secret").classList.remove("show-secret");
+function closeSecret(){
+  document.getElementById("secret").classList.remove("show");
 }
