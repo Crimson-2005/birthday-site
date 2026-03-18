@@ -11,6 +11,35 @@ window.onload = function() {
   });
 };
 
+let time = 5;
+const timerEl = document.getElementById("intro-timer");
+const revealBtn = document.getElementById("revealBtn");
+const loadingScreen = document.getElementById("loading");
+const music = document.getElementById("birthdayMusic"); // Make sure your <audio> has this ID
+
+// Countdown
+const countdown = setInterval(() => {
+  time--;
+  timerEl.innerText = time;
+
+  if (time <= 0) {
+    clearInterval(countdown);
+    revealBtn.classList.remove("hidden"); // Show button
+  }
+}, 1000);
+
+// Button click: hide loading & play music
+revealBtn.addEventListener("click", () => {
+  // Fade out loading screen
+  loadingScreen.style.transition = "opacity 0.8s";
+  loadingScreen.style.opacity = "0";
+  setTimeout(() => { loadingScreen.style.display = "none"; }, 800);
+
+  // Play music
+  music.volume = 0.5;
+  music.play();
+});
+
 const heartContainer = document.querySelector('.hearts');
 const balloonArea = document.getElementById('balloons');
 
