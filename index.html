@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Surprise 🦇✨</title>
+<title>Somya's Dreamy Birthday 💖</title>
 <link rel="stylesheet" href="style.css">
-
-<!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
@@ -14,51 +12,48 @@
 <audio id="birthdayBgm" loop>
   <source src="birthday.mp3" type="audio/mp3">
 </audio>
-
-<audio id="batmanBgm" loop>
-  <source src="batman.mp3" type="audio/mp3">
-</audio>
-
 <audio id="meowSfx">
   <source src="meow.mp3" type="audio/mp3">
 </audio>
 
 <!-- LOADING SCREEN -->
 <div id="loading">
-  <h1>Surprise Loading...</h1>
+  <h1>Loading Something Magical… ✨</h1>
   <p id="intro-timer">5</p>
-  <button id="revealBtn" class="hidden" onclick="revealSurprise()">Enter the Birthday 🎉</button>
+  <button id="revealBtn" class="hidden">Enter the Birthday 💖</button>
 </div>
 
-<!-- BATS -->
-<div id="bats"></div>
+<!-- FLOATING CONTAINERS -->
+<div class="hearts"></div>
+<div id="balloons"></div>
+<div id="sparkleContainer"></div>
 
 <!-- MAIN CONTENT -->
 <div id="main" class="hidden">
-  <h1>Happy Birthday, Somya! 💛</h1>
-  <p>
-    Wishing you a night full of stars ✨, floating balloons 🎈, and tiny surprises 🫧.<br>
-    Enjoy your special day with magic around every corner 🌌.
-  </p>
-  <button onclick="showGame()">Play the Mini Game 🎮</button>
+  <div class="card">
+    <h1>Happy Birthday, Somya! 🌸</h1>
+    <p>
+      Wishing you a pastel-filled day 💖, floating balloons 🎈, sparkles ✨ and tiny surprises 🫧.<br>
+      Enjoy your magical day! 🎀
+    </p>
+    <button id="gameBtn">Play the Mini Game 🎮</button>
+  </div>
 
+  <!-- GAME -->
   <div id="gameContainer" class="hidden">
-    <h2>Catch the Sparkle Cheese 🧀</h2>
-    <p>Score: <span id="score">0</span></p>
-    <button onclick="startGame()">Start Game</button>
-    <div id="gameArea"></div>
+    <h2 id="gameTitle">Game 1: Catch the Hearts 💖</h2>
+    <p id="gameMessage"></p>
+    <div id="gameBox"></div>
   </div>
 </div>
 
 <!-- SECRET -->
 <div id="secret" class="secret">
-  <h1>🎉 SECRET UNLOCKED 🎉</h1>
-  <p>
-    You did it! 🎊✨<br>
-    MEOWWW 😼💖<br>
-    Happy Birthday again, Somya!
-  </p>
-  <button onclick="closeSecret()">Close Secret 💌</button>
+  <div class="card">
+    <h2>🎉 SECRET UNLOCKED 🎉</h2>
+    <p>You did it! MEOWWW 😼💖<br>Happy Birthday again, Somya!</p>
+    <button onclick="closeSecret()">Close 💌</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
