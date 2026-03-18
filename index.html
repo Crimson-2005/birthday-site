@@ -2,57 +2,65 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise 🎀💖</title>
-
-<!-- AOS for fade animations -->
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-<!-- CSS -->
+<title>Birthday Surprise 🦇✨</title>
 <link rel="stylesheet" href="style.css">
 
 <!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<!-- AOS JS -->
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 </head>
 <body>
 
-<!-- LOADING SCREEN -->
-<div id="loading">
-  <h1>Loading Your Surprise...</h1>
-  <p id="intro-timer">5</p>
-  <button id="revealBtn" class="hidden" onclick="startHeartGame()">Click to Start 💖</button>
-</div>
-
-<!-- HEARTS & BALLOONS -->
-<div class="hearts"></div>
-<div id="balloons"></div>
-
-<!-- GAME AREA -->
-<div id="gameIntro" class="hidden card">
-  <h2 id="gameTitle">Catch the Hearts 💖</h2>
-  <p id="gameMessage">Click hearts to unlock the next surprise! 🌸</p>
-  <div id="gameBox"></div>
-</div>
-
-<!-- MAIN POST-GAME CONTENT -->
-<div id="mainContent">
-  <div class="card" data-aos="fade-up">
-    <h1>Happy Birthday, Gorgeous! 🎀💖</h1>
-    <p>Sparks, hearts, bows… all just for you! ✨ Keep smiling and enjoy your magical day! 🌸💫</p>
-  </div>
-  <div class="card" data-aos="fade-up">
-    <p>Lots of love and hugs! 💕</p>
-  </div>
-</div>
-
 <!-- AUDIO -->
-<audio id="birthdayMusic" loop>
+<audio id="birthdayBgm" loop>
   <source src="birthday.mp3" type="audio/mp3">
 </audio>
 
-<!-- JS -->
+<audio id="batmanBgm" loop>
+  <source src="batman.mp3" type="audio/mp3">
+</audio>
+
+<audio id="meowSfx">
+  <source src="meow.mp3" type="audio/mp3">
+</audio>
+
+<!-- LOADING SCREEN -->
+<div id="loading">
+  <h1>Surprise Loading...</h1>
+  <p id="intro-timer">5</p>
+  <button id="revealBtn" class="hidden" onclick="revealSurprise()">Enter the Birthday 🎉</button>
+</div>
+
+<!-- BATS -->
+<div id="bats"></div>
+
+<!-- MAIN CONTENT -->
+<div id="main" class="hidden">
+  <h1>Happy Birthday, Somya! 💛</h1>
+  <p>
+    Wishing you a night full of stars ✨, floating balloons 🎈, and tiny surprises 🫧.<br>
+    Enjoy your special day with magic around every corner 🌌.
+  </p>
+  <button onclick="showGame()">Play the Mini Game 🎮</button>
+
+  <div id="gameContainer" class="hidden">
+    <h2>Catch the Sparkle Cheese 🧀</h2>
+    <p>Score: <span id="score">0</span></p>
+    <button onclick="startGame()">Start Game</button>
+    <div id="gameArea"></div>
+  </div>
+</div>
+
+<!-- SECRET -->
+<div id="secret" class="secret">
+  <h1>🎉 SECRET UNLOCKED 🎉</h1>
+  <p>
+    You did it! 🎊✨<br>
+    MEOWWW 😼💖<br>
+    Happy Birthday again, Somya!
+  </p>
+  <button onclick="closeSecret()">Close Secret 💌</button>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
