@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Happy Birthday Somya 🎂</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Somya's Birthday Surprise 🎉</title>
+  <link rel="stylesheet" href="style.css">
 
+  <!-- CONFETTI -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- AOS Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
 <body>
 
-<!-- LOADING SCREEN -->
-<div id="loading">
-  <h1>Something magical is coming… ✨</h1>
-  <p id="countdown">5</p>
-  <button id="enterBtn" class="hidden">Enter Birthday 💖</button>
-</div>
+  <!-- LOADING SCREEN -->
+  <div id="loading">
+    <h1>Loading... <span id="countdown">5</span></h1>
+    <button id="enterBtn" class="hidden">Enter 🎉</button>
+  </div>
 
-<!-- MAIN CONTENT -->
+ <!-- MAIN CONTENT -->
 <div id="mainContent" class="hidden">
   <div class="card" data-aos="zoom-in">
     <h2>Happy Birthday Somya! 🎂✨</h2>
@@ -34,16 +35,17 @@
     <p>Write text here. 🎈 Keep adding more cards as needed.</p>
   </div>
 
-  <!-- Floating effects container -->
+  <!-- FLOATING HEARTS -->
   <div class="hearts"></div>
   <div id="balloons"></div>
-</div>
 
-<!-- AUDIO -->
-<audio id="birthdayMusic" src="birthday.mp3" loop></audio>
+  <!-- BIRTHDAY MUSIC -->
+  <audio id="birthdayMusic" loop>
+    <source src="birthday-music.mp3" type="audio/mpeg">
+  </audio>
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<script src="script.js"></script>
-
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
