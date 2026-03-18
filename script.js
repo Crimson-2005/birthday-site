@@ -1,6 +1,3 @@
-Yus and give me full codes please
-
-these are my current codes
 AOS.init({
   duration: 800,
   once: true
