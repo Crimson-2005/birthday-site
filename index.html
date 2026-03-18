@@ -1,61 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Somya's Dreamy Birthday 💖</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Somya 🎂</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 </head>
-<body>
 
-<!-- AUDIO -->
-<audio id="birthdayBgm" loop>
-  <source src="birthday.mp3" type="audio/mp3">
-</audio>
-<audio id="meowSfx">
-  <source src="meow.mp3" type="audio/mp3">
-</audio>
+<body>
 
 <!-- LOADING SCREEN -->
 <div id="loading">
-  <h1>Loading Something Magical… ✨</h1>
-  <p id="intro-timer">5</p>
-  <button id="revealBtn" class="hidden">Enter the Birthday 💖</button>
+  <h1>Something magical is coming… ✨</h1>
+  <p id="countdown">5</p>
+  <button id="enterBtn" class="hidden">Enter Birthday 💖</button>
 </div>
-
-<!-- FLOATING CONTAINERS -->
-<div class="hearts"></div>
-<div id="balloons"></div>
-<div id="sparkleContainer"></div>
 
 <!-- MAIN CONTENT -->
-<div id="main" class="hidden">
-  <div class="card">
-    <h1>Happy Birthday, Somya! 🌸</h1>
-    <p>
-      Wishing you a pastel-filled day 💖, floating balloons 🎈, sparkles ✨ and tiny surprises 🫧.<br>
-      Enjoy your magical day! 🎀
-    </p>
-    <button id="gameBtn">Play the Mini Game 🎮</button>
+<div id="mainContent" class="hidden">
+  <div class="card" data-aos="zoom-in">
+    <h2>Happy Birthday Somya! 🎂✨</h2>
+    <p>Write text here. 🎉</p>
   </div>
 
-  <!-- GAME -->
-  <div id="gameContainer" class="hidden">
-    <h2 id="gameTitle">Game 1: Catch the Hearts 💖</h2>
-    <p id="gameMessage"></p>
-    <div id="gameBox"></div>
+  <div class="card" data-aos="fade-up">
+    <p>Write text here. 💖 Random words for placeholder. 🫶</p>
   </div>
+<div class="heart-break">• • • 💗 • • •</div>
+  <div class="card" data-aos="zoom-in">
+    <h2>Another Card Title Here</h2>
+    <p>Write text here. 🎈 Keep adding more cards as needed.</p>
+  </div>
+
+  <!-- Floating effects container -->
+  <div class="hearts"></div>
+  <div id="balloons"></div>
 </div>
 
-<!-- SECRET -->
-<div id="secret" class="secret">
-  <div class="card">
-    <h2>🎉 SECRET UNLOCKED 🎉</h2>
-    <p>You did it! MEOWWW 😼💖<br>Happy Birthday again, Somya!</p>
-    <button onclick="closeSecret()">Close 💌</button>
-  </div>
-</div>
+<!-- AUDIO -->
+<audio id="birthdayMusic" src="birthday.mp3" loop></audio>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
