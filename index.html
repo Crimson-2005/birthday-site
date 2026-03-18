@@ -7,51 +7,49 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
   <!-- LOADING SCREEN -->
-  <div id="loading">
-    <h1>Surprise Loading...</h1>
-    <p id="intro-timer">5</p>
-    <button id="revealBtn" class="hidden" onclick="revealSurprise()">Click for your Surprise 🎁</button>
-  </div>
+<div id="loading">
+  <h1>Surprise Loading...</h1>
+  <p id="intro-timer">5</p>
+  <button id="revealBtn" class="hidden" onclick="revealSurprise()">Click for your Surprise 🎁</button>
+</div>
+  
+<div class="card" data-aos="zoom-in">
+  <h2>Happy Birthday Somyaa 🎂✨</h2>
+  <p> ADD TEXT </p>
+</div>
+  
+<div class="heart-break">• • • 💗 • • •</div>
+  
+<div class="card" id="gameIntro">
+  <h2>Isse pehle hum tumhe emotional kar dein…</h2>
+  <p>Thoda masti karte hai 😌🎮</p>
+  <p> Ab birthday pe toh games khelna chahiye naa..</p>
+  <button onclick="startHeartGame()">Start Games</button>
+</div>
 
-  <!-- MAIN CARDS -->
-  <div class="card" data-aos="zoom-in">
-    <h2>Happy Birthday Somyaa 🎂✨</h2>
-    <p>Wishing you endless smiles, love, and glittering joy today and always! 💖</p>
-  </div>
+<div class="card" id="gameArea" style="display:none;">
+  <h2 id="gameTitle"></h2>
+  <div id="gameBox" style="margin-top:20px;"></div>
+  <p id="gameMessage" style="margin-top:20px;"></p>
+</div>
+  
+<div id="mainContent">
+   <div class="card" data-aos="zoom-in">
+  <h2>ADD TEXT </h2>
+  <p>ADD TEXT </p>
+        <img src="pic1.jpeg" alt="PIC 1">
+   </div>
 
-  <div class="heart-break">• • • 💗 • • •</div>
+<div class="hearts"></div>
+<div id="balloons"></div>
 
-  <div class="card" id="gameIntro">
-    <h2>Isse pehle hum tumhe emotional kar dein…</h2>
-    <p>Thoda masti karte hai 😌🎮</p>
-    <p>Ab birthday pe toh games khelna chahiye naa..</p>
-    <button onclick="startHeartGame()">Start Games</button>
-  </div>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="script.js"></script>
 
-  <div class="card" id="gameArea" style="display:none;">
-    <h2 id="gameTitle"></h2>
-    <div id="gameBox" style="margin-top:20px;"></div>
-    <p id="gameMessage" style="margin-top:20px;"></p>
-  </div>
+<audio id="birthdayMusic" src="birthday.mp3" loop></audio>
 
-  <!-- POST-GAME CONTENT -->
-  <div id="mainContent">
-    <div class="card" data-aos="zoom-in">
-      <h2>Birthday Memories 📸</h2>
-      <p>Here’s to another year of sparkle, fun, and giggles 💖✨</p>
-      <img src="pic1.jpeg" alt="PIC 1">
-    </div>
-  </div>
-
-  <!-- ANIMATIONS -->
-  <div class="hearts"></div>
-  <div id="balloons"></div>
-
-  <audio id="birthdayMusic" src="birthday.mp3" loop></audio>
-  <script src="script.js"></script>
 </body>
 </html>
