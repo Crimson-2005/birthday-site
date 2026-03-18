@@ -1,34 +1,34 @@
+// ================== AOS ==================
 AOS.init({
   duration: 800,
   once: true
 });
 
-window.onload = function() {
-  confetti({
-    particleCount: 150,
-    spread: 70,
-    origin: { y: 0.6 }
-  });
-};
-
-let time = 5;
+// ================== ELEMENTS ==================
 const timerEl = document.getElementById("intro-timer");
 const revealBtn = document.getElementById("revealBtn");
 const loadingScreen = document.getElementById("loading");
-const music = document.getElementById("birthdayMusic"); // Make sure your <audio> has this ID
+const music = document.getElementById("birthdayMusic");
+const heartContainer = document.querySelector('.hearts');
+const balloonArea = document.getElementById('balloons');
 
-// Countdown
+let time = 5;
+let heartScore = 0;
+let heartInterval;
+let fallingWordsInterval;
+
+// ================== LOADING COUNTDOWN ==================
 const countdown = setInterval(() => {
   time--;
   timerEl.innerText = time;
 
   if (time <= 0) {
     clearInterval(countdown);
-    revealBtn.classList.remove("hidden"); // Show button
+    revealBtn.classList.remove("hidden"); // show the button
   }
 }, 1000);
 
-// Button click: hide loading & play music
+// ================== REVEAL BUTTON ==================
 revealBtn.addEventListener("click", () => {
   // Fade out loading screen
   loadingScreen.style.transition = "opacity 0.8s";
@@ -38,47 +38,49 @@ revealBtn.addEventListener("click", () => {
   // Play music
   music.volume = 0.5;
   music.play();
+
+  // Confetti effect
+  confetti({
+    particleCount: 150,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+
+  // Start background hearts and balloons
+  startHeartsAndBalloons();
 });
 
-const heartContainer = document.querySelector('.hearts');
-const balloonArea = document.getElementById('balloons');
+// ================== HEARTS & BALLOONS ==================
+function startHeartsAndBalloons() {
+  setInterval(() => {
+    // HEART
+    const heart = document.createElement('span');
+    heart.textContent = '💖';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = Math.random() * 10 + 15 + 'px';
+    heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+    heartContainer.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
 
-setInterval(() => {
-  // HEART
-  const heart = document.createElement('span');
-  heart.textContent = '💖';
-  heart.style.left = Math.random() * 100 + 'vw';
-  heart.style.fontSize = Math.random() * 10 + 15 + 'px';
-  heart.style.animationDuration = Math.random() * 3 + 4 + 's';
-  heartContainer.appendChild(heart);
-  setTimeout(() => heart.remove(), 7000);
+    // BALLOON
+    const b = document.createElement('span');
+    b.textContent = '🎈';
+    b.style.left = Math.random() * 100 + 'vw';
+    b.style.fontSize = Math.random() * 30 + 30 + 'px';
+    balloonArea.appendChild(b);
+    setTimeout(() => b.remove(), 13000);
 
-  // BALLOON
-  const b = document.createElement('span');
-  b.textContent = '🎈';
-  b.style.left = Math.random() * 100 + 'vw';
-  b.style.fontSize = Math.random() * 30 + 30 + 'px';
-  balloonArea.appendChild(b);
-  setTimeout(() => b.remove(), 13000);
+  }, 500);
+}
 
-}, 500);
-
-let heartScore = 0;
-let heartInterval;
-
+// ================== GAME 1: CATCH HEARTS ==================
 function startHeartGame() {
-  const music = document.getElementById("birthdayMusic");
-  music.volume = 0.5;
-  music.play();
-  
   document.getElementById("gameIntro").style.display = "none";
   document.getElementById("gameArea").style.display = "block";
-
   document.getElementById("gameTitle").innerText = "Game 1: Catch 7 Hearts 💖";
   document.getElementById("gameMessage").innerText = "";
 
   heartScore = 0;
-
   const box = document.getElementById("gameBox");
   box.innerHTML = `<div id="gameScore">Score: 0 / 7</div>`;
 
@@ -88,11 +90,9 @@ function startHeartGame() {
 
 function spawnHeart() {
   const box = document.getElementById("gameBox");
-
   const heart = document.createElement("span");
   heart.innerText = "💖";
   heart.classList.add("click-heart");
-
   heart.style.left = Math.random() * 85 + "%";
   heart.style.top = Math.random() * 75 + "%";
 
@@ -111,6 +111,7 @@ function spawnHeart() {
   setTimeout(() => heart.remove(), 3000);
 }
 
+// ================== GAME 2: FIND LUCKY BALLOON ==================
 function startBalloonGame() {
   document.getElementById("gameTitle").innerText = "Game 2: Find the Lucky Balloon 🎈";
   document.getElementById("gameBox").innerHTML = "";
@@ -132,6 +133,7 @@ function startBalloonGame() {
   }
 }
 
+// ================== GAME 3: CATCH COMPLIMENTS ==================
 function startBoxGame() {
   document.getElementById("gameTitle").innerText = "Game 3: Catch the Compliments 💖";
   const box = document.getElementById("gameBox");
@@ -153,6 +155,11 @@ function startBoxGame() {
 
   box.appendChild(scoreDisplay);
   box.appendChild(gameArea);
+
+  // Clear old interval if exists
+  if (fallingWordsInterval) clearInterval(fallingWordsInterval);
+
+  fallingWordsInterval = setInterval(createFallingWord, 1000);
 
   function createFallingWord() {
     if (!gameActive) return;
@@ -188,31 +195,28 @@ function startBoxGame() {
 
       if (score >= 10) {
         gameActive = false;
+        clearInterval(fallingWordsInterval);
         setTimeout(() => unlockMainContent(), 800);
       }
     };
   }
-
-  setInterval(createFallingWord, 1000);
 }
 
+// ================== UNLOCK MAIN CONTENT ==================
 function unlockMainContent() {
   const mainContent = document.getElementById("mainContent");
   const gameAreaCard = document.getElementById("gameArea");
   const gameIntroCard = document.getElementById("gameIntro");
 
-  // Hide the game completely
   if (gameAreaCard) gameAreaCard.style.display = "none";
   if (gameIntroCard) gameIntroCard.style.display = "none";
 
-  // Reveal the post-game content
   mainContent.style.display = "block";  
   setTimeout(() => {
     mainContent.style.opacity = "1"; // fade-in container
     mainContent.style.pointerEvents = "auto";
   }, 100);
 
-  // Scroll reveal for post-game cards
   const cards = mainContent.querySelectorAll(".card");
   const observer = new IntersectionObserver(
     (entries) => {
@@ -224,4 +228,3 @@ function unlockMainContent() {
   );
   cards.forEach((card) => observer.observe(card));
 }
-
