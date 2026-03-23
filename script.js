@@ -17,6 +17,11 @@ let heartScore = 0;
 let heartInterval;
 let fallingWordsInterval;
 
+// ================== PRELOAD AUDIO (IMPORTANT) ==================
+if (music) {
+  music.load();
+}
+
 // ================== LOADING COUNTDOWN ==================
 const countdown = setInterval(() => {
   time--;
@@ -24,7 +29,7 @@ const countdown = setInterval(() => {
 
   if (time <= 0) {
     clearInterval(countdown);
-    revealBtn.classList.remove("hidden"); // show the button
+    revealBtn.classList.remove("hidden");
   }
 }, 1000);
 
@@ -35,18 +40,30 @@ revealBtn.addEventListener("click", () => {
   loadingScreen.style.opacity = "0";
   setTimeout(() => { loadingScreen.style.display = "none"; }, 800);
 
-  // Play music
-  music.volume = 0.5;
-  music.play();
+  // 🎵 PLAY MUSIC (FIXED)
+  if (music) {
+    music.volume = 0.5;
 
-  // Confetti effect
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log("Music playing 🎶");
+        })
+        .catch((error) => {
+          console.log("Autoplay blocked 😭", error);
+        });
+    }
+  }
+
+  // Confetti 🎉
   confetti({
     particleCount: 150,
     spread: 70,
     origin: { y: 0.6 }
   });
 
-  // Start background hearts and balloons
   startHeartsAndBalloons();
 });
 
@@ -156,9 +173,7 @@ function startBoxGame() {
   box.appendChild(scoreDisplay);
   box.appendChild(gameArea);
 
-  // Clear old interval if exists
   if (fallingWordsInterval) clearInterval(fallingWordsInterval);
-
   fallingWordsInterval = setInterval(createFallingWord, 1000);
 
   function createFallingWord() {
@@ -186,6 +201,7 @@ function startBoxGame() {
 
     word.onclick = function () {
       if (!gameActive) return;
+
       if (word.dataset.good === "true") score++;
       else score = Math.max(0, score - 1);
 
@@ -211,9 +227,10 @@ function unlockMainContent() {
   if (gameAreaCard) gameAreaCard.style.display = "none";
   if (gameIntroCard) gameIntroCard.style.display = "none";
 
-  mainContent.style.display = "block";  
+  mainContent.style.display = "block";
+
   setTimeout(() => {
-    mainContent.style.opacity = "1"; // fade-in container
+    mainContent.style.opacity = "1";
     mainContent.style.pointerEvents = "auto";
   }, 100);
 
@@ -226,5 +243,6 @@ function unlockMainContent() {
     },
     { threshold: 0.2 }
   );
+
   cards.forEach((card) => observer.observe(card));
 }
