@@ -28,11 +28,11 @@
 
 /* ================== BODY ================== */
 body {
-  background: linear-gradient(to bottom, #ffd6e8, #ffe6f0, #f3e8ff, #e0d4ff);
+  background: linear-gradient(to bottom, #f3e8ff, #e0d4ff, #d6e4ff, #f8e6f0);
   background-attachment: fixed;
   background-size: 400% 400%;
-  animation: sunset 60s ease-in-out infinite;
-  color: #a85d7b;
+  animation: sunset 80s ease-in-out infinite;
+  color: #5f5a7a;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -41,49 +41,36 @@ body {
   position: fixed;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #ffe6f0, #fff0f5, #fdf0ff);
+  background: linear-gradient(135deg, #f3e8ff, #e8ddff, #f8e6f0);
   background-size: 400% 400%;
-  animation: introGradient 20s ease infinite;
+  animation: introGradient 25s ease infinite;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  color: #ff8fb1;
+  color: #9b8fdc;
 }
 
-@keyframes introGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ✨ DRAMATIC TITLE */
+/* ✨ TITLE */
 #loading h1 {
   font-size: 3rem;
   font-family: 'MinyaNouvelle', cursive;
-  color:#ff6fa5;
-  text-shadow:0 0 10px #ffc0cb, 0 0 30px #ffd6e8;
+  color:#8f7ae6;
+  text-shadow:0 0 10px rgba(180,160,255,0.4);
   animation: glowPulse 2s infinite alternate;
 }
 
 @keyframes glowPulse {
-  from { text-shadow:0 0 8px #ffc0cb, 0 0 20px #ffd6e8; }
-  to { text-shadow:0 0 15px #ff9ec7, 0 0 40px #ffe4f0; }
+  from { text-shadow:0 0 6px rgba(180,160,255,0.3); }
+  to { text-shadow:0 0 15px rgba(160,140,255,0.6); }
 }
 
 #intro-timer {
   font-size:5rem;
   font-weight:bold;
-  color:#ff6fa5;
-  text-shadow:0 0 10px #ffc0cb, 0 0 30px #ffd6e8;
+  color:#8f7ae6;
   animation:pulseTimer 1s infinite;
-}
-
-@keyframes pulseTimer { 
-  0%{transform:scale(1);} 
-  50%{transform:scale(1.2);} 
-  100%{transform:scale(1);} 
 }
 
 .hidden { display:none; }
@@ -95,8 +82,8 @@ button {
   padding: 12px 25px;
   border: none;
   border-radius: 30px;
-  background: #ff8fb1;
-  color: white;
+  background: linear-gradient(135deg, #d6ccff, #f2c6de);
+  color: #5f5a7a;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -105,183 +92,87 @@ button {
 #revealBtn {
   margin-top: 20px;
   font-size: 1.3rem;
-  background: #ffb6c1;
-  box-shadow: 0 6px 15px rgba(255, 182, 193, 0.4);
+  box-shadow: 0 6px 15px rgba(160, 140, 255, 0.25);
 }
 
 button:hover,
 #revealBtn:hover {
   transform: scale(1.08);
-  background: #ff6f9f;
+  background: linear-gradient(135deg, #c4b5ff, #eab6d2);
 }
 
 /* ================== CARD ================== */
 .card {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
   padding: 35px;
   margin: 60px auto;
   border-radius: 24px;
   max-width: 700px;
-  box-shadow: 0 20px 40px rgba(255, 182, 193, 0.25);
-  position: relative;
-  z-index: 2;
+  box-shadow: 0 20px 40px rgba(120, 110, 200, 0.15);
   text-align: center;
   animation: popUp 0.6s ease;
-  color: #a85d7b;
+  color: #5f5a7a;
 }
 
-/* ✨ DREAMY HEADINGS */
+/* ✨ HEADINGS */
 .card h2 {
   font-family: 'Celestina', cursive;
-  color: #ff7aa2;
+  color: #8f7ae6;
   margin-bottom: 16px;
   letter-spacing: 1px;
-  text-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
 }
 
-/* 💌 BODY TEXT */
+/* 💌 TEXT */
 .card p {
   font-family: 'StarChoco', sans-serif;
 }
 
-/* ================== HEARTS ================== */
-.hearts {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hearts span {
-  position: absolute;
-  bottom: -40px;
-  animation: heartFloat linear forwards;
-}
-
-/* ================== BALLOONS ================== */
-#balloons span {
-  position: fixed;
-  bottom: -100px;
-  pointer-events: none;
-  animation: float 12s ease-in forwards;
-}
-
 /* ================== GAME BOX ================== */
 #gameBox {
-  position: relative;
-  height: 300px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 20px;
-}
-
-/* ================== HEART GAME ================== */
-.click-heart {
-  position: absolute;
-  font-size: 30px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.click-heart:hover {
-  transform: scale(1.2);
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 10px 25px rgba(150, 140, 220, 0.15);
 }
 
 /* ================== FALLING WORD ================== */
 .falling-word {
-  position: absolute;
-  top: 0;
-  font-size: 1rem;
-  font-family: 'StarChoco', sans-serif;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 6px 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  white-space: nowrap;
-  box-shadow: 0 5px 15px rgba(255, 182, 193, 0.2);
-}
-
-.falling-word:hover {
-  transform: scale(1.1);
-}
-
-/* ================== SCORE ================== */
-#gameScore,
-#scoreDisplay {
-  font-family: 'LoftyGoals', cursive;
-  font-size: 1.2rem;
-  margin-top: 10px;
-  font-weight: 600;
-}
-
-/* ================== DIVIDER ================== */
-.heart-break {
-  font-family: 'LoftyGoals', cursive;
-  text-align: center;
-  font-size: 1.2rem;
-  letter-spacing: 8px;
-  margin: 70px 0;
-  color: #ff7aa2;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 5px 15px rgba(150, 140, 220, 0.15);
 }
 
 /* ================== CHOICE BOX ================== */
 .choice-box {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 120px;
-  height: 120px;
-  margin: 15px;
-  font-size: 40px;
-  background: #ffe4f0;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
+  background: #ede7ff;
 }
 
 .choice-box:hover {
-  background: #ffcde0;
-  transform: scale(1.1);
+  background: #dcd3ff;
 }
 
-/* ================== MAIN CONTENT ================== */
-#mainContent {
-  display: none;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 1s ease;
-}
-
-#mainContent .card {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-#mainContent .card.show {
-  opacity: 1;
-  transform: translateY(0);
+/* ================== DIVIDER ================== */
+.heart-break {
+  color: #8f7ae6;
 }
 
 /* ================== IMAGE ================== */
 .card img {
-  width: 100%;
-  height: auto;
-  display: block;
   border-radius: 15px;
 }
 
 /* ================== ANIMATIONS ================== */
+@keyframes pulseTimer { 
+  0%{transform:scale(1);} 
+  50%{transform:scale(1.2);} 
+  100%{transform:scale(1);} 
+}
+
 @keyframes heartFloat {
   from { transform: translateY(0); opacity: 1; }
   to   { transform: translateY(-110vh); opacity: 0; }
 }
 
 @keyframes float {
-  0% { opacity: 0; transform: translateY(0); }
+  0% { opacity: 0; }
   20% { opacity: 1; }
   100% { transform: translateY(-110vh); opacity: 0; }
 }
