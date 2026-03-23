@@ -1,21 +1,42 @@
-/* RESET */
+/* ================== CUSTOM FONTS ================== */
+@font-face {
+  font-family: 'LoftyGoals';
+  src: url('./LoftyGoals.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Celestina';
+  src: url('./Celestina.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'StarChoco';
+  src: url('./StarChoco.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'MinyaNouvelle';
+  src: url('./MinyaNouvelle.otf') format('opentype');
+}
+
+/* ================== RESET ================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
+/* ================== BODY ================== */
 body {
   background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
   background-attachment: fixed;
-  background-size: 400% 400%; /* makes it possible to slowly move the gradient */
-  animation: sunset 60s ease-in-out infinite; /* slower, smooth */
+  background-size: 400% 400%;
+  animation: sunset 60s ease-in-out infinite;
   color: #b34747;
-  font-family: 'Poppins', sans-serif; 
+  font-family: 'Poppins', sans-serif;
 }
 
-/* LOADING SCREEN */
+/* ================== LOADING SCREEN ================== */
 #loading {
   position: fixed;
   width: 100%;
@@ -37,8 +58,10 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+/* ✨ DRAMATIC TITLE */
 #loading h1 {
   font-size: 3rem;
+  font-family: 'MinyaNouvelle', cursive;
   color:#ff1493;
   text-shadow:0 0 12px #ffb6c1, 0 0 40px #ffc0cb;
   animation: glowPulse 2s infinite alternate;
@@ -57,29 +80,42 @@ body {
   animation:pulseTimer 1s infinite;
 }
 
-@keyframes pulseTimer { 0%{transform:scale(1);} 50%{transform:scale(1.2);} 100%{transform:scale(1);} }
+@keyframes pulseTimer { 
+  0%{transform:scale(1);} 
+  50%{transform:scale(1.2);} 
+  100%{transform:scale(1);} 
+}
 
 .hidden { display:none; }
 
+/* ================== BUTTON ================== */
+#revealBtn,
+button {
+  font-family: 'LoftyGoals', cursive;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  background: #ff5e9c;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
 #revealBtn {
   margin-top: 20px;
-  padding: 12px 25px;
   font-size: 1.3rem;
   background: #ffb6c1;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
   box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
-  transition: transform 0.2s, background 0.3s;
 }
 
+button:hover,
 #revealBtn:hover {
-  transform: scale(1.1);
-  background: #ff69b4;
+  transform: scale(1.08);
+  background: #ff3d87;
 }
 
-/* CARD BASE */
+/* ================== CARD ================== */
 .card {
   background: rgba(255, 255, 255, 0.92);
   padding: 35px;
@@ -91,32 +127,23 @@ body {
   z-index: 2;
   text-align: center;
   animation: popUp 0.6s ease;
-  color: #b34747; /* match body text */
+  color: #b34747;
 }
 
+/* ✨ DREAMY HEADINGS */
 .card h2 {
+  font-family: 'Celestina', cursive;
   color: #ff5e9c;
   margin-bottom: 16px;
+  letter-spacing: 1px;
 }
 
-/* BUTTON */
-button {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 30px;
-  background: #ff5e9c;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
+/* 💌 BODY TEXT */
+.card p {
+  font-family: 'StarChoco', sans-serif;
 }
 
-button:hover {
-  transform: scale(1.08);
-  background: #ff3d87;
-}
-
-/* HEART BACKGROUND */
+/* ================== HEARTS ================== */
 .hearts {
   position: fixed;
   inset: 0;
@@ -130,7 +157,7 @@ button:hover {
   animation: heartFloat linear forwards;
 }
 
-/* BALLOONS */
+/* ================== BALLOONS ================== */
 #balloons span {
   position: fixed;
   bottom: -100px;
@@ -138,7 +165,7 @@ button:hover {
   animation: float 12s ease-in forwards;
 }
 
-/* GAME BOX */
+/* ================== GAME BOX ================== */
 #gameBox {
   position: relative;
   height: 300px;
@@ -146,10 +173,9 @@ button:hover {
   border-radius: 20px;
   overflow: hidden;
   margin-top: 20px;
-  color: #b34747;
 }
 
-/* CLICK HEART GAME */
+/* ================== HEART GAME ================== */
 .click-heart {
   position: absolute;
   font-size: 30px;
@@ -161,11 +187,12 @@ button:hover {
   transform: scale(1.2);
 }
 
-/* FALLING WORD GAME */
+/* ================== FALLING WORD ================== */
 .falling-word {
   position: absolute;
   top: 0;
   font-size: 1rem;
+  font-family: 'StarChoco', sans-serif;
   background: rgba(255, 255, 255, 0.9);
   padding: 6px 12px;
   border-radius: 12px;
@@ -173,24 +200,24 @@ button:hover {
   transition: transform 0.2s ease;
   white-space: nowrap;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  color: #b34747;
 }
 
 .falling-word:hover {
   transform: scale(1.1);
 }
 
-/* SCORE */
+/* ================== SCORE ================== */
 #gameScore,
 #scoreDisplay {
+  font-family: 'LoftyGoals', cursive;
   font-size: 1.2rem;
   margin-top: 10px;
   font-weight: 600;
-  color: #b34747;
 }
 
-/* HEART BREAK DIVIDER */
+/* ================== DIVIDER ================== */
 .heart-break {
+  font-family: 'LoftyGoals', cursive;
   text-align: center;
   font-size: 1.2rem;
   letter-spacing: 8px;
@@ -198,7 +225,7 @@ button:hover {
   color: #ff5e9c;
 }
 
-/* CHOICE BOX */
+/* ================== CHOICE BOX ================== */
 .choice-box {
   display: inline-flex;
   align-items: center;
@@ -211,7 +238,6 @@ button:hover {
   border-radius: 20px;
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
-  color: #b34747;
 }
 
 .choice-box:hover {
@@ -219,56 +245,33 @@ button:hover {
   transform: scale(1.1);
 }
 
-/* POST-GAME CARDS SCROLL REVEAL */
+/* ================== MAIN CONTENT ================== */
 #mainContent {
-  display: none;        /* hide until games finish */
+  display: none;
   opacity: 0;
   pointer-events: none;
   transition: opacity 1s ease;
-}
-
-#mainContent.visible {
-  display: block;
-  opacity: 1;
-  pointer-events: auto;
 }
 
 #mainContent .card {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
-  color: #b34747;
 }
 
 #mainContent .card.show {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ================== IMAGE ================== */
 .card img {
   width: 100%;
   height: auto;
   display: block;
 }
 
-.bts-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.bts-gallery img {
-  width: 200px;
-  border-radius: 15px;
-  transition: transform 0.3s ease;
-}
-
-.bts-gallery img:hover {
-  transform: scale(1.05);
-}
-
-/* ANIMATIONS */
+/* ================== ANIMATIONS ================== */
 @keyframes heartFloat {
   from { transform: translateY(0); opacity: 1; }
   to   { transform: translateY(-110vh); opacity: 0; }
@@ -290,4 +293,3 @@ button:hover {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
