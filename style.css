@@ -61,6 +61,7 @@ body {
 /* ✨ DRAMATIC TITLE */
 #loading h1 {
   font-size: 3rem;
+  margin: 0;
   font-family: 'MinyaNouvelle', cursive;
   color: #ffffff;
   text-shadow: 0 0 10px rgba(255,255,255,0.4);
