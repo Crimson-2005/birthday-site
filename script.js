@@ -94,10 +94,12 @@ function startHeartsAndBalloons() {
 function startHeartGame() {
   document.getElementById("gameIntro").style.display = "none";
   document.getElementById("gameArea").style.display = "block";
-  document.getElementById("gameTitle").innerText = "Game 1: Catch 7 Hearts 💖";
-  document.getElementById("gameMessage").innerText = "";
+
+  document.getElementById("gameTitle").innerText = "Game 1: Catch the Hearts 💖";
+  document.getElementById("gameMessage").innerText = "Jitne dil pakad sakti ho… utna pyaar milega 😏💘";
 
   heartScore = 0;
+
   const box = document.getElementById("gameBox");
   box.innerHTML = `<div id="gameScore">Score: 0 / 7</div>`;
 
@@ -107,32 +109,48 @@ function startHeartGame() {
 
 function spawnHeart() {
   const box = document.getElementById("gameBox");
+
   const heart = document.createElement("span");
   heart.innerText = "💖";
   heart.classList.add("click-heart");
+
   heart.style.left = Math.random() * 85 + "%";
   heart.style.top = Math.random() * 75 + "%";
 
   heart.onclick = function () {
     heart.remove();
     heartScore++;
-    document.getElementById("gameScore").innerText = "Score: " + heartScore + " / 7";
+
+    document.getElementById("gameScore").innerText =
+      "Score: " + heartScore + " / 7";
 
     if (heartScore >= 7) {
       clearInterval(heartInterval);
-      setTimeout(() => startBalloonGame(), 600);
+
+      document.getElementById("gameMessage").innerText =
+        "Acha ji… dil jeet liya tumne 😏✨";
+
+      setTimeout(() => startBalloonGame(), 800);
     }
   };
 
   box.appendChild(heart);
-  setTimeout(() => heart.remove(), 3000);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 3000);
 }
 
 // ================== GAME 2: FIND LUCKY BALLOON ==================
 function startBalloonGame() {
-  document.getElementById("gameTitle").innerText = "Game 2: Find the Lucky Balloon 🎈";
-  document.getElementById("gameBox").innerHTML = "";
-  document.getElementById("gameMessage").innerText = "Choose wisely 😏";
+  document.getElementById("gameTitle").innerText =
+    "Game 2: Find the Lucky Balloon 🎈";
+
+  document.getElementById("gameMessage").innerText =
+    "Ek hi balloon lucky hai… baaki sab dhokebaaz 😏🎈";
+
+  const box = document.getElementById("gameBox");
+  box.innerHTML = "";
 
   const lucky = Math.floor(Math.random() * 3);
 
@@ -142,26 +160,49 @@ function startBalloonGame() {
     balloon.innerText = "🎈";
 
     balloon.onclick = function () {
-      if (i === lucky) startBoxGame();
-      else document.getElementById("gameMessage").innerText = "Oops 😜 Try Again!";
+      if (i === lucky) {
+        document.getElementById("gameMessage").innerText =
+          "Waahhh intuition strong hai 😏✨";
+
+        setTimeout(() => startBoxGame(), 800);
+      } else {
+        document.getElementById("gameMessage").innerText =
+          "Oops 😜 Try Again!";
+      }
     };
 
-    document.getElementById("gameBox").appendChild(balloon);
+    box.appendChild(balloon);
   }
 }
 
 // ================== GAME 3: CATCH COMPLIMENTS ==================
 function startBoxGame() {
-  document.getElementById("gameTitle").innerText = "Game 3: Catch the Compliments 💖";
+  document.getElementById("gameTitle").innerText =
+    "Game 3: Catch the Compliments 💖";
+
+  document.getElementById("gameMessage").innerText =
+    "Sirf achhe words click karo 😌 galat pe click kiya toh score gayaaa 💀";
+
   const box = document.getElementById("gameBox");
   box.innerHTML = "";
-  document.getElementById("gameMessage").innerText = "Good words click karo! Wrong pe mat click karna 😌";
 
   let score = 0;
   let gameActive = true;
 
-  const goodWords = ["Choco Puff 🍫", "Gulabo 💐", "Cutie Patootie 🫧", "Apsara 💫", "Sundari ✨"];
-  const badWords = ["Naagin 🐍", "Badtameez 😏", "Aafat ⚡", "Chudail 👻"];
+  const goodWords = [
+    "Choco Puff 🍫",
+    "Gulabo 💐",
+    "Cutie Patootie 🫧",
+    "Apsara 💫",
+    "Sundari ✨"
+  ];
+
+  const badWords = [
+    "Naagin 🐍",
+    "Badtameez 😏",
+    "Aafat ⚡",
+    "Chudail 👻"
+  ];
 
   const scoreDisplay = document.createElement("div");
   scoreDisplay.id = "scoreDisplay";
@@ -169,11 +210,13 @@ function startBoxGame() {
 
   const gameArea = document.createElement("div");
   gameArea.id = "catchGameArea";
+  gameArea.style.position = "relative";
+  gameArea.style.height = "300px";
 
   box.appendChild(scoreDisplay);
   box.appendChild(gameArea);
 
-  if (fallingWordsInterval) clearInterval(fallingWordsInterval);
+  clearInterval(fallingWordsInterval);
   fallingWordsInterval = setInterval(createFallingWord, 1000);
 
   function createFallingWord() {
@@ -183,40 +226,62 @@ function startBoxGame() {
     word.classList.add("falling-word");
 
     const isGood = Math.random() > 0.4;
+
     word.innerText = isGood
       ? goodWords[Math.floor(Math.random() * goodWords.length)]
       : badWords[Math.floor(Math.random() * badWords.length)];
 
     word.dataset.good = isGood;
-    word.style.left = Math.random() * 280 + "px";
+
+    word.style.left = Math.random() * 250 + "px";
+    word.style.top = "0px";
+
     gameArea.appendChild(word);
 
     let topPosition = 0;
+
     const fallInterval = setInterval(() => {
-      if (!gameActive) { clearInterval(fallInterval); return; }
-      topPosition += 0.5;
+      if (!gameActive) {
+        clearInterval(fallInterval);
+        return;
+      }
+
+      topPosition += 1;
       word.style.top = topPosition + "px";
-      if (topPosition > 260) { word.remove(); clearInterval(fallInterval); }
-    }, 30);
+
+      if (topPosition > 260) {
+        word.remove();
+        clearInterval(fallInterval);
+      }
+    }, 20);
 
     word.onclick = function () {
       if (!gameActive) return;
 
-      if (word.dataset.good === "true") score++;
-      else score = Math.max(0, score - 1);
+      if (word.dataset.good === "true") {
+        score++;
+      } else {
+        score = Math.max(0, score - 1);
+      }
 
       scoreDisplay.innerText = "Score: " + score;
+
       word.remove();
       clearInterval(fallInterval);
 
       if (score >= 10) {
         gameActive = false;
         clearInterval(fallingWordsInterval);
-        setTimeout(() => unlockMainContent(), 800);
+
+        document.getElementById("gameMessage").innerText =
+          "Okayyy impressed 😏💖 you passed all tests";
+
+        setTimeout(() => unlockMainContent(), 1000);
       }
     };
   }
 }
+
 
 // ================== UNLOCK MAIN CONTENT ==================
 function unlockMainContent() {
