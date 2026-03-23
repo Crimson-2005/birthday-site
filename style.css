@@ -80,7 +80,7 @@ body {
 #intro-timer {
   font-size:5rem;
   font-weight:bold;
-  color: #C9184A;
+  color: #FF4D6D;
   text-shadow: 0 0 10px rgba(255,255,255,0.4);
   animation:pulseTimer 1s infinite;
 }
@@ -138,8 +138,8 @@ button:hover,
 
 /* ✨ DREAMY HEADINGS */
 .card h2 {
-  font-family: 'Celestina', cursive;
-   color: #C9184A;
+  font-family: 'MinyaNouvelle', cursive;
+  color: #C9184A;
   text-shadow: 0 0 8px rgba(154,149,237,0.4);
   margin-bottom: 16px;
   letter-spacing: 1px;
