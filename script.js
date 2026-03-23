@@ -160,8 +160,8 @@ function startBoxGame() {
   let score = 0;
   let gameActive = true;
 
-  const goodWords = ["Choco Puff 🍫", "Gulabo 💐", "Cutie Patootie 🫧", "Bestie 🫶", "Paglu 😜"];
-  const badWords = ["Drama Frog 🐸", "Sleepy Potato 🥔", "Ziddi Zombie 🧟", "Manjulika 👻"];
+  const goodWords = ["Choco Puff 🍫", "Gulabo 💐", "Cutie Patootie 🫧", "Apsara 💫", "Sundari ✨"];
+  const badWords = ["Naagin 🐍", "Badtameez 😏", "Aafat ⚡", "Chudail 👻"];
 
   const scoreDisplay = document.createElement("div");
   scoreDisplay.id = "scoreDisplay";
