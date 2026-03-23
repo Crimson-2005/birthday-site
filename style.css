@@ -67,7 +67,7 @@ body {
   font-size: 3rem;
   margin: 0;
   font-family: 'MinyaNouvelle', cursive;
-  color: #C9184A;
+  color: #FF4D6D;
   text-shadow: 0 0 10px rgba(255,255,255,0.4);
   animation: glowPulse 2s infinite alternate;
 }
