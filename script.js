@@ -181,7 +181,7 @@ function startBoxGame() {
     "Game 3: Catch the Compliments 💖";
 
   document.getElementById("gameMessage").innerText =
-   "Sirf achhi cheezein choose karna… baaki sab ignore 😌💗";
+  "Sirf achhi cheezein choose karna… baaki sab ignore kar dena, jaise tum real life mein karti ho 😌💗";
 
   const box = document.getElementById("gameBox");
   box.innerHTML = "";
@@ -274,7 +274,7 @@ function startBoxGame() {
         clearInterval(fallingWordsInterval);
 
         document.getElementById("gameMessage").innerText =
-        "Okay… maan gaye 😌💖 tumne sab pass kar liya… ab main bol sakta hu 💭";
+    "Okay… maan gaye 😌💖 tumne sab pass kar liya… ab thodi der ke liye bakchodi side pe rakhte hain 💭";
 
         setTimeout(() => unlockMainContent(), 1000);
       }
