@@ -280,6 +280,14 @@ button:hover,
   height: auto;
   display: block;
   border-radius: 15px;
+  margin: 25px 0;
+  box-shadow: 0 12px 30px rgba(46, 31, 116, 0.25);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 18px 40px rgba(46, 31, 116, 0.35);
 }
 
 /* ================== ANIMATIONS ================== */
