@@ -128,7 +128,7 @@ function spawnHeart() {
       clearInterval(heartInterval);
 
       document.getElementById("gameMessage").innerText =
-        "Acha ji… dil jeet liya tumne 😏✨";
+       "Acha… saree ke fall sa match nahi kiya… par dil toh perfectly catch kar liya tumne 😌💖";
 
       setTimeout(() => startBalloonGame(), 800);
     }
@@ -147,7 +147,7 @@ function startBalloonGame() {
     "Game 2: Find the Lucky Balloon 🎈";
 
   document.getElementById("gameMessage").innerText =
-    "Ek hi balloon lucky hai… baaki sab dhokebaaz 😏🎈";
+   "Ek hi sahi hai… dekhte hai tumhara guess kitna sahi hota hai 😏🎈";
 
   const box = document.getElementById("gameBox");
   box.innerHTML = "";
@@ -162,12 +162,12 @@ function startBalloonGame() {
     balloon.onclick = function () {
       if (i === lucky) {
         document.getElementById("gameMessage").innerText =
-          "Waahhh intuition strong hai 😏✨";
+        "Waah… intuition strong hai tumhara 😌✨";
 
         setTimeout(() => startBoxGame(), 800);
       } else {
         document.getElementById("gameMessage").innerText =
-          "Oops 😜 Try Again!";
+         "Arre nahi 😭 firse try karo na…";
       }
     };
 
@@ -181,7 +181,7 @@ function startBoxGame() {
     "Game 3: Catch the Compliments 💖";
 
   document.getElementById("gameMessage").innerText =
-    "Sirf achhe words click karo 😌 galat pe click kiya toh score gayaaa 💀";
+   "Sirf achhi cheezein choose karna… baaki sab ignore 😌💗";
 
   const box = document.getElementById("gameBox");
   box.innerHTML = "";
@@ -274,7 +274,7 @@ function startBoxGame() {
         clearInterval(fallingWordsInterval);
 
         document.getElementById("gameMessage").innerText =
-          "Okayyy impressed 😏💖 you passed all tests";
+        "Okay… maan gaye 😌💖 tumne sab pass kar liya… ab main bol sakta hu 💭";
 
         setTimeout(() => unlockMainContent(), 1000);
       }
